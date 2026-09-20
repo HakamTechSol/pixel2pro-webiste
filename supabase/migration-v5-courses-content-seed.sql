@@ -33,8 +33,8 @@ UPDATE public.courses SET
   classes_per_week = 2, hours_per_class = 2, status = 'published',
   description = '4-Month Full-Stack Development, AI Coding Workflow & Practical Project Building',
   overview = 'A hands-on 4-month cohort designed to turn learners into practical software builders. The program focuses on modern development workflows, AI-assisted coding, debugging, deployment, and real-world project shipping so students can learn, prompt, generate, understand, debug, improve, and deploy with confidence.',
-  instructor = 'Hakamtechsol Technical Board',
-  instructor_role = 'Enterprise Software Leads',
+  instructor = 'Hunain Haider',
+  instructor_role = 'Full-Stack Developer & AI Instructor',
   outcomes = '[
     "Build responsive web interfaces with modern frontend workflows.",
     "Use AI tools to generate, explain, and improve production-ready code.",
@@ -76,10 +76,10 @@ UPDATE public.courses SET
 WHERE course_name = 'Next-Gen Developer: AI Coding & Vibe Coding';
 
 -- ============================================================
--- 3) Backfill: AI Foundation and Freelancing
+-- 3) Backfill: AI Foundation & Freelancing
 -- ============================================================
 UPDATE public.courses SET
-  program_name = 'AI Foundation and Freelancing',
+  program_name = 'AI Foundation & Freelancing',
   category = 'AI & Freelancing',
   track = 'AI Track',
   duration = '2 Months',
@@ -89,8 +89,8 @@ UPDATE public.courses SET
   classes_per_week = 2, hours_per_class = 2, status = 'published',
   description = 'AI Tools for Study, Work & Daily Life with Online Earning Guidance',
   overview = 'A practical AI foundation course designed for everyone — students, job seekers, working professionals, women (housewives), and daily users. Learn the most popular AI tools for study, office work, content creation, and everyday productivity, with clear guidance on how to use these skills for career growth and online earning.',
-  instructor = 'Zara Khan',
-  instructor_role = 'AI Tools & Career Guidance Mentor',
+  instructor = 'Arbaz Ali',
+  instructor_role = 'Senior Software Developer & AI Foundation Mentor',
   outcomes = '[
     "Use AI tools confidently in daily life, studies, and work",
     "Write effective prompts for ChatGPT and other AI tools",
@@ -123,7 +123,7 @@ UPDATE public.courses SET
     { "value": "2 Classes/Wk", "label": "Interactive Sessions" },
     { "value": "2 Hours/Day", "label": "Class Duration" }
   ]'::jsonb
-WHERE course_name = 'AI Foundation and Freelancing';
+WHERE course_name = 'AI Foundation & Freelancing';
 
 -- ============================================================
 -- 4) Backfill: Digital Marketing
@@ -139,8 +139,8 @@ UPDATE public.courses SET
   classes_per_week = 2, hours_per_class = 2, status = 'published',
   description = 'Meta & Google Ads, Paid Media, Funnels & Performance Growth Strategy',
   overview = 'A growth-focused program covering paid media, analytics, content systems, funnels, and repeatable campaign optimization.',
-  instructor = 'Maha Siddiqui',
-  instructor_role = 'Performance Growth Strategist',
+  instructor = 'M Junaid Shahid',
+  instructor_role = 'Digital Marketing & AI Skills Trainer',
   outcomes = '[
     "Launch performance campaigns across major channels",
     "Read analytics and improve conversion funnels",
@@ -194,8 +194,8 @@ UPDATE public.courses SET
   classes_per_week = 2, hours_per_class = 2, status = 'published',
   description = 'E-Commerce Operations, Theme Customization & Guaranteed Internship',
   overview = 'The Shopify Store Development & Management Course is a comprehensive training program designed to equip students with the knowledge and practical skills required to build, customize, manage, optimize and launch professional Shopify e-commerce stores. Throughout this two-month course, students will learn every stage of Shopify store development from creating a Shopify account to designing a fully functional online store, integrating payment gateways, optimizing for search engines, implementing marketing strategies, understanding Shopify development basics using Liquid, and preparing a store for launch.',
-  instructor = 'Hakamtechsol E-Commerce Lead',
-  instructor_role = 'E-Commerce Product Lead',
+  instructor = 'M. Ali',
+  instructor_role = 'E-Commerce Growth Product Lead',
   outcomes = '[
     "Understand the fundamentals of e-commerce and online business.",
     "Create and configure a Shopify store from scratch.",

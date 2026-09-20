@@ -18,6 +18,7 @@ import reactLogo from "@/assets/program-images/React-removebg-preview.png";
 import shopifyLogo from "@/assets/program-images/shopify-removebg-preview.png";
 import socialMarketingLogo from "@/assets/program-images/social-media-marketing-removebg-preview.png";
 import tiktokLogo from "@/assets/program-images/tiktok-advertising.png";
+import type { FeePlan } from "@/lib/fee-plans";
 
 export interface Course {
   id: string;
@@ -33,6 +34,9 @@ export interface Course {
   price: number;
   admissionFee?: number;
   monthlyFee?: number;
+  itDiscountMonthlyFee?: number;
+  itDiscountRegistrationFee?: number;
+  feePlans: FeePlan[];
   showOnHome?: boolean;
   homeOrder?: number;
   image: string;
@@ -71,10 +75,42 @@ export const courses: Course[] = [
     duration: "4 Months",
     sessions: "2 Classes/Week | 2 hours/Day",
     level: "Advanced",
-    price: 1000,
+    price: 25000,
+    feePlans: [
+      {
+        id: "monthly",
+        type: "monthly",
+        title: "Monthly Fee",
+        totalFee: 25000,
+        registrationFee: 5000,
+        monthlyFee: 5000,
+        months: 4,
+      },
+      {
+        id: "lump-sum",
+        type: "lump-sum",
+        title: "One-Time Payment",
+        totalFee: 16000,
+        registrationFee: 0,
+        badge: "Best Value",
+        note: "No registration fee",
+      },
+      {
+        id: "installment",
+        type: "installment",
+        title: "2 Installments",
+        totalFee: 18000,
+        registrationFee: 2000,
+        badge: "Flexible",
+        installments: [
+          { label: "Before course starts", amount: 10000, note: "Course fee 8,000 + registration 2,000" },
+          { label: "Start of 2nd month", amount: 8000 },
+        ],
+      },
+    ],
     image: "/p2p/nextGen.jpeg",
-    instructor: "Hakamtechsol Technical Board",
-    instructorRole: "Enterprise Software Leads",
+    instructor: "Hunain Haider",
+    instructorRole: "Full-Stack Developer & AI Instructor",
     overview:
       "A hands-on 4-month cohort designed to turn learners into practical software builders. The program focuses on modern development workflows, AI-assisted coding, debugging, deployment, and real-world project shipping so students can learn, prompt, generate, understand, debug, improve, and deploy with confidence.",
     outcomes: [
@@ -241,10 +277,42 @@ export const courses: Course[] = [
     duration: "3 Months",
     sessions: "2 Classes/Week | 2 hours/Day",
     level: "Intermediate",
-    price: 1000,
+    price: 20000,
+    feePlans: [
+      {
+        id: "monthly",
+        type: "monthly",
+        title: "Monthly Fee",
+        totalFee: 20000,
+        registrationFee: 5000,
+        monthlyFee: 5000,
+        months: 3,
+      },
+      {
+        id: "lump-sum",
+        type: "lump-sum",
+        title: "One-Time Payment",
+        totalFee: 12000,
+        registrationFee: 0 ,
+        badge: "Best Value",
+        note: "No registration fee",
+      },
+      {
+        id: "installment",
+        type: "installment",
+        title: "2 Installments",
+        totalFee: 16000,
+        registrationFee: 2000,
+        badge: "Flexible",
+        installments: [
+          { label: "Before course starts", amount: 9000 },
+          { label: "Start of 2nd month", amount: 7000 },
+        ],
+      },
+    ],
     image: "/p2p/digitalmarketing.jpeg",
-    instructor: "Maha Siddiqui",
-    instructorRole: "Performance Growth Strategist",
+    instructor: "M Junaid Shahid",
+    instructorRole: "Digital Marketing & AI Skills Trainer",
     overview:
       "A growth-focused program covering paid media, analytics, content systems, funnels, and repeatable campaign optimization.",
     outcomes: [
@@ -291,17 +359,37 @@ export const courses: Course[] = [
     id: "ai-freelancing",
     number: "03",
     track: "AI Track",
-    title: "AI Foundation and Freelancing",
-    programName: "AI Foundation and Freelancing",
+    title: "AI Foundation & Freelancing",
+    programName: "AI Foundation & Freelancing",
     description: "AI Tools for Study, Work & Daily Life with Online Earning Guidance",
     category: "AI & Freelancing",
     duration: "2 Months",
     sessions: "2 Classes/Week | 2 hours/Day",
     level: "Beginner",
-    price: 1000,
+    price: 15000,
+    feePlans: [
+      {
+        id: "monthly",
+        type: "monthly",
+        title: "Monthly Fee",
+        totalFee: 15000,
+        registrationFee: 5000,
+        monthlyFee: 5000,
+        months: 2,
+      },
+      {
+        id: "lump-sum",
+        type: "lump-sum",
+        title: "One-Time Payment",
+        totalFee: 8000,
+        registrationFee: 0,
+        badge: "Best Value",
+        note: "No registration fee",
+      },
+    ],
     image: "/p2p/AIfrelancing.jpeg",
-    instructor: "Zara Khan",
-    instructorRole: "AI Tools & Career Guidance Mentor",
+    instructor: "Arbaz Ali",
+    instructorRole: "Senior Software Developer & AI Foundation Mentor",
     overview:
       "A practical AI foundation course designed for everyone — students, job seekers, working professionals, women (housewives), and daily users. Learn the most popular AI tools for study, office work, content creation, and everyday productivity, with clear guidance on how to use these skills for career growth and online earning.",
     outcomes: [
@@ -348,10 +436,30 @@ export const courses: Course[] = [
     duration: "2 Months",
     sessions: "2 Classes/Week",
     level: "Beginner",
-    price: 1000,
+    price: 15000,
+    feePlans: [
+      {
+        id: "monthly",
+        type: "monthly",
+        title: "Monthly Fee",
+        totalFee: 15000,
+        registrationFee: 5000,
+        monthlyFee: 5000,
+        months: 2,
+      },
+      {
+        id: "lump-sum",
+        type: "lump-sum",
+        title: "One-Time Payment",
+        totalFee: 8000,
+        registrationFee: 0,
+        badge: "Best Value",
+        note: "No registration fee",
+      },
+    ],
     image: "/p2p/shopify.jpeg",
-    instructor: "Hakamtechsol E-Commerce Lead",
-    instructorRole: "E-Commerce Product Lead",
+    instructor: "M. Ali",
+    instructorRole: "E-Commerce Growth Product Lead",
     overview:
       "The Shopify Store Development & Management Course is a comprehensive training program designed to equip students with the knowledge and practical skills required to build, customize, manage, optimize and launch professional Shopify e-commerce stores. Throughout this two-month course, students will learn every stage of Shopify store development from creating a Shopify account to designing a fully functional online store, integrating payment gateways, optimizing for search engines, implementing marketing strategies, understanding Shopify development basics using Liquid, and preparing a store for launch.",
     outcomes: [

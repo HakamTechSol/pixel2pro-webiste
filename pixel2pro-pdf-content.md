@@ -14,7 +14,7 @@
 
 **Contact Details:**
 - Email:  contact@pixel2pro.com 
-- Admissions: +92 309 227 1214
+- Admissions: +92 316 785 3795
 - Address: UF-114, Kolachi IT Park, Gulshan E Jamal, Rashid Minhas Road, Karachi, Sindh, Pakistan
 - Socials: Facebook, Instagram, LinkedIn, YouTube
 
@@ -95,7 +95,7 @@ The academy is built for learners who want practical, affordable, and career-foc
 **Schedule:** 3 Classes/Week  
 **Level:** Advanced  
 **Course Data Price:** PKR 55,000  
-**Instructor:** Hakamtechsol Technical Board  
+
 **Instructor Role:** Enterprise Software Leads
 
 ### Overview

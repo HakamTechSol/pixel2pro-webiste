@@ -4,8 +4,32 @@ import { SlidersHorizontal, Search } from "lucide-react";
 import Layout from "@/components/Layout";
 import CourseCard from "@/components/CourseCard";
 import ToolsCarousel from "@/components/ToolsCarousel";
-import { categories } from "@/data/courses";
+import { categories, courses as allCourses } from "@/data/courses";
 import { useWebsiteCourses } from "@/lib/useCourses";
+
+const coursesJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Pixel2Pro Courses and Learning Tracks",
+  description:
+    "Pixel2Pro cohort-based courses in Pakistan: Digital Marketing Mastery, Shopify Store Development, AI Foundation and Freelancing, and Next-Gen Developer.",
+  url: "https://pixel2pro.com/courses",
+  about: {
+    "@type": "Organization",
+    name: "Pixel2Pro",
+    url: "https://pixel2pro.com",
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: allCourses.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.programName,
+      url: `https://pixel2pro.com/courses/${c.id}`,
+      description: c.description,
+    })),
+  },
+};
 
 const Courses = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -57,7 +81,8 @@ const Courses = () => {
   return (
     <Layout
       title="Our Programs & Learning Tracks"
-      description="Explore Pixel2Pro's cohort-based learning paths: Digital Marketing, Shopify, Graphic Design, Amazon Virtual Assistant, AI Foundation and Freelancing, and Next-Gen Developer. Apply now!"
+      description="Explore Pixel2Pro's cohort-based learning paths: Next-Gen Development, AI Foundation & Freelancing, Digital Marketing, and Shopify Store Development. Apply now!"
+      jsonLd={[coursesJsonLd]}
     >
       <section className="border-b border-slate-200 bg-slate-50 py-6 md:py-10">
         <div className="container flex flex-col items-center">
@@ -106,13 +131,13 @@ const Courses = () => {
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="h-[340px] animate-pulse rounded-[24px] border border-slate-200 bg-slate-100" />
               ))}
             </div>
           ) : filtered.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2">
               {filtered.map((course) => (
                 <CourseCard key={course.id} course={course} compact />
               ))}

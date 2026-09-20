@@ -31,7 +31,7 @@ const Header = () => {
     <>
       {bannerEnabled && (
         <a
-          href={bannerLink || "https://wa.me/923092271214?text=Hi%20Pixel2Pro%20I%20want%20to%20join%20the%20free%20AI%20awareness%20session"}
+          href={bannerLink || "https://wa.me/923167853795?text=Hi%20Pixel2Pro%20I%20want%20to%20join%20the%20free%20AI%20awareness%20session"}
           target="_blank"
           rel="noreferrer"
           className="flex h-9 items-center justify-center gap-1.5 overflow-hidden bg-black px-4 text-center text-xs font-bold text-white shadow-sm transition hover:brightness-105"
@@ -105,7 +105,6 @@ const Header = () => {
         </div>
         <div className="mt-8 grid gap-3 border-t border-slate-200 pt-5 text-sm font-medium text-slate-500">
           <Link to="/privacy" onClick={() => setDrawerOpen(false)}>Privacy Policy</Link>
-          <Link to="/refund-policy" onClick={() => setDrawerOpen(false)}>Refund Policy</Link>
         </div>
       </aside>
 

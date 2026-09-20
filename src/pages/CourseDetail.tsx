@@ -1,15 +1,26 @@
 import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, CalendarDays, Check, Clock3, Layers3, PlayCircle, TrendingUp } from "lucide-react";
+import { ArrowLeft, BadgeCheck, CalendarDays, Check, Clock3, Layers3, PlayCircle, TrendingUp } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { FeePlansPanel } from "@/components/FeePlans";
 import { useCourseById } from "@/lib/useCourses";
+import { getFeePlans, formatPKR } from "@/lib/fee-plans";
 
 const CourseDetail = () => {
   const { id } = useParams();
   const { course, loading } = useCourseById(id);
+  const [showFees, setShowFees] = useState(false);
 
   if (loading) {
     return (
@@ -32,6 +43,13 @@ const CourseDetail = () => {
     );
   }
 
+  const plans = getFeePlans(course);
+  const itDiscountMonthlyFee = course.itDiscountMonthlyFee ?? 4500;
+  const itDiscountRegistrationFee = course.itDiscountRegistrationFee ?? 3000;
+  const regularMonthlyFee = course.monthlyFee ?? 5000;
+  const regularAdmissionFee = course.admissionFee ?? 5000;
+  const showItDiscount = itDiscountMonthlyFee > 0 && itDiscountRegistrationFee > 0;
+
 return (
     <Layout
       title={`${course.programName} Course`}
@@ -43,21 +61,48 @@ return (
             "@context": "https://schema.org",
             "@type": "Course",
             "name": course.programName,
-            "description": `${course.overview} ${course.description} Level: ${course.level}.`,
+            "description": `${course.overview} ${course.description} Duration: ${course.duration}. Level: ${course.level}.`,
             "provider": {
               "@type": "Organization",
               "name": "Pixel2Pro",
               "url": "https://pixel2pro.com"
             },
             "inLanguage": "en",
+            "courseMode": "Online",
+            "educationalLevel": course.level,
+            "coursePrerequisites": course.level,
+            "image": course.image.startsWith("http")
+              ? course.image
+              : `https://pixel2pro.com${course.image}`,
             "offers": {
               "@type": "Offer",
-              "price": course.price,
+              "price": course.price || 0,
               "priceCurrency": "PKR",
-              "availability": "https://schema.org/InStock"
+              "availability": "https://schema.org/InStock",
+              "url": `https://pixel2pro.com/courses/${course.id}`
             },
-            "coursePrerequisites": course.level,
-            "startDate": "2026-10-01"
+            "hasCourseInstance": {
+              "@type": "CourseInstance",
+              "courseMode": "Online",
+              "courseWorkload": course.duration,
+              "instructor": {
+                "@type": "Person",
+                "name": course.instructor,
+                "jobTitle": course.instructorRole,
+                "worksFor": { "@type": "Organization", "name": "Pixel2Pro" }
+              }
+            }
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pixel2pro.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Courses", "item": "https://pixel2pro.com/courses" },
+              { "@type": "ListItem", "position": 3, "name": course.programName, "item": `https://pixel2pro.com/courses/${course.id}` }
+            ]
           })}
         </script>
       </Helmet>
@@ -214,19 +259,8 @@ return (
               <PlayCircle size={24} />
               <h2 className="mt-4 text-2xl font-bold">Enroll in {course.title}</h2>
               <p className="mt-2 text-sm text-slate-500">{course.duration} with {course.sessions.toLowerCase()}.</p>
-              <div className="mt-4 space-y-2 rounded-lg bg-slate-50 p-4 text-sm">
-                <p className="font-semibold text-slate-700">Fee Details:</p>
-                <p className="text-slate-600">Admission Fee: <span className="font-bold">
-                  {course.admissionFee != null ? `PKR ${course.admissionFee.toLocaleString()}` : course.price > 0 ? `PKR ${course.price.toLocaleString()}` : "—"}
-                </span></p>
-                <p className="text-slate-600">Monthly Fee: <span className="font-bold">
-                  {course.monthlyFee && course.monthlyFee > 0 ? `PKR ${course.monthlyFee.toLocaleString()}` : course.price > 0 ? `PKR ${course.price.toLocaleString()}` : "—"}
-                </span></p>
-                <p className="mt-2 text-xs text-slate-500">If a student returns after completing one course, they won't need to pay admission fee again</p>
-              </div>
-              <Link to={`/join?track=${course.id}`} className="mt-5 block">
-                <Button className="h-12 w-full rounded-full">Enroll Now</Button>
-              </Link>
+              <Button onClick={() => setShowFees(true)} className="mt-5 h-12 w-full rounded-full">Enroll Now</Button>
+              <p className="mt-3 text-center text-xs text-slate-400">Fee &amp; payment options shown before you enroll.</p>
             </div>
           </aside>
         </div>
@@ -237,16 +271,71 @@ return (
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-bold">{course.title}</p>
             <p className="text-xs text-slate-500">{course.duration}</p>
-            <p className="text-xs text-slate-400">
-              {course.admissionFee != null ? `Admission: ${course.admissionFee.toLocaleString()} | ` : ""}
-              {course.monthlyFee && course.monthlyFee > 0 ? `Monthly: ${course.monthlyFee.toLocaleString()}` : `Fee: ${course.price.toLocaleString()}`}
-            </p>
           </div>
-          <Link to={`/join?track=${course.id}`}>
-            <Button className="rounded-full px-5">Enroll Now</Button>
-          </Link>
+          <Button onClick={() => setShowFees(true)} className="rounded-full px-5">Enroll Now</Button>
         </div>
       </div>
+
+      <Dialog open={showFees} onOpenChange={setShowFees}>
+        <DialogContent className="max-h-[85vh] max-w-lg overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Enroll in {course.title}</DialogTitle>
+            <DialogDescription>
+              {course.duration} with {course.sessions.toLowerCase()} — choose a payment option below.
+            </DialogDescription>
+          </DialogHeader>
+          <FeePlansPanel plans={plans} />
+          {showItDiscount && (
+            <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+              <div className="flex items-center gap-2">
+                <BadgeCheck size={16} className="shrink-0 text-emerald-600" />
+                <h3 className="text-sm font-bold text-emerald-800">
+                  Discount For IT Students &amp; Professionals
+                </h3>
+              </div>
+              <p className="mt-1 text-xs leading-5 text-emerald-700">
+                Special discounted pricing for IT students &amp; professionals:
+              </p>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <div className="rounded-lg border border-emerald-200 bg-white p-3">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">
+                    Monthly Fee
+                  </p>
+                  <p className="mt-1 text-lg font-bold text-slate-900">
+                    {formatPKR(itDiscountMonthlyFee)}
+                  </p>
+                  <p className="text-[11px] text-slate-400 line-through">
+                    {formatPKR(regularMonthlyFee)}
+                  </p>
+                </div>
+                <div className="rounded-lg border border-emerald-200 bg-white p-3">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">
+                    Registration Fee
+                  </p>
+                  <p className="mt-1 text-lg font-bold text-slate-900">
+                    {formatPKR(itDiscountRegistrationFee)}
+                  </p>
+                  <p className="text-[11px] text-slate-400 line-through">
+                    {formatPKR(regularAdmissionFee)}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="mt-5 flex flex-col gap-2">
+            <Link to={`/join?track=${course.id}`} onClick={() => setShowFees(false)}>
+              <Button className="h-12 w-full rounded-full">Enroll Now</Button>
+            </Link>
+            <Button
+              variant="outline"
+              className="h-10 w-full rounded-full"
+              onClick={() => setShowFees(false)}
+            >
+              Cancel
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </Layout>
   );
 };

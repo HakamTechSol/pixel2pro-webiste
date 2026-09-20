@@ -63,6 +63,48 @@ const Index = () => {
     <Layout
       title="Best Online Courses & Educational Research in Pakistan"
       description="Pixel2Pro is a leading vocational training and educational research platform in Pakistan. Discover courses in Next-Gen Development, AI Foundation & Freelancing, Digital Marketing, and more."
+      jsonLd={[
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Pixel2Pro - Online Courses in Pakistan",
+          url: "https://pixel2pro.com/",
+          description:
+            "Pixel2Pro offers premium online courses in Pakistan: Next-Gen Development, AI Foundation & Freelancing, Digital Marketing, and Shopify.",
+          isPartOf: { "@type": "WebSite", name: "Pixel2Pro", url: "https://pixel2pro.com" },
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Popular Pixel2Pro Courses",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Next-Gen Developer: AI Coding & Vibe Coding",
+              url: "https://pixel2pro.com/courses/next-gen-developer",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Digital Marketing Mastery Program",
+              url: "https://pixel2pro.com/courses/digital-marketing",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: "AI Foundation and Freelancing",
+              url: "https://pixel2pro.com/courses/ai-freelancing",
+            },
+            {
+              "@type": "ListItem",
+              position: 4,
+              name: "Shopify Store Development & Management",
+              url: "https://pixel2pro.com/courses/shopify-growth",
+            },
+          ],
+        },
+      ]}
     >
       <section className="relative overflow-visible border-b border-slate-200 bg-white">
         <div className="container grid grid-cols-1 items-center gap-8 pt-10 pb-6 md:min-h-[520px] md:grid-cols-[0.95fr_1.05fr] md:py-2">
@@ -210,7 +252,7 @@ const Index = () => {
                 </div>
                 <div className="flex shrink-0 flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
                   <a
-                    href={bannerLink || "https://wa.me/923092271214?text=Hi%20Pixel2Pro%20I%20want%20to%20join%20the%20free%20AI%20awareness%20session"}
+                    href={bannerLink || "https://wa.me/923167853795?text=Hi%20Pixel2Pro%20I%20want%20to%20join%20the%20free%20AI%20awareness%20session"}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#25D366] px-6 text-sm font-semibold text-white shadow-lg transition hover:bg-[#1fbe59]"

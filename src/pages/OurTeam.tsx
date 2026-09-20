@@ -48,7 +48,7 @@ const team: TeamMember[] = [
   {
     name: "Syed Hunain Haider Zaidi",
     role: "Senior Dotnet Developer",
-    phone: "+92 318 248 4396",
+    phone: "+92 316 785 3795",
     email: "hunainhaider811@gmail.com",
     image: hunainImg,
     socials: [

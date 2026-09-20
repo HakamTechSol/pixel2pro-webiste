@@ -54,7 +54,7 @@ const sections = [
   },
   {
     title: "12. Contact Us",
-    text: "If you have any questions about this Privacy Policy or about how your data is handled, email us at contact@pixel2pro.com, call +92 309 227 1214, or write to us at UF-114, Kolachi IT Park, Gulshan E Jamal, Rashid Minhas Road, Karachi, Sindh, Pakistan.",
+    text: "If you have any questions about this Privacy Policy or about how your data is handled, email us at contact@pixel2pro.com, call +92 316 785 3795, or write to us at UF-114, Kolachi IT Park, Gulshan E Jamal, Rashid Minhas Road, Karachi, Sindh, Pakistan.",
   },
 ];
 
@@ -86,9 +86,7 @@ const Privacy = () => (
             </AccordionItem>
           ))}
         </Accordion>
-        <p className="mt-6 text-sm text-slate-500">
-          Questions about your data? See our <Link to="/contact" className="font-semibold text-black underline underline-offset-4">Contact page</Link> or review our <Link to="/terms" className="font-semibold text-black underline underline-offset-4">Terms &amp; Conditions</Link>.
-        </p>
+       
       </div>
     </section>
   </Layout>

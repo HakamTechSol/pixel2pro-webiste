@@ -1,78 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
   <url>
     <loc>https://pixel2pro.com/</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://pixel2pro.com/courses</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://pixel2pro.com/p2p/digitalmarketing.jpeg</image:loc>
+      <image:title>Pixel2Pro Digital Marketing Course</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://pixel2pro.com/p2p/nextGen.jpeg</image:loc>
+      <image:title>Pixel2Pro Next-Gen Developer Course</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://pixel2pro.com/p2p/shopify.jpeg</image:loc>
+      <image:title>Pixel2Pro Shopify Development Course</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://pixel2pro.com/p2p/AIfrelancing.jpeg</image:loc>
+      <image:title>Pixel2Pro AI Freelancing Course</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/courses/next-gen-developer</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://pixel2pro.com/p2p/nextGen.jpeg</image:loc>
+      <image:title>Next-Gen Developer: AI Coding &amp; Vibe Coding</image:title>
+      <image:caption>4-month full-stack development, AI coding workflow &amp; practical project building at Pixel2Pro Pakistan</image:caption>
+    </image:image>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/courses/digital-marketing</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://pixel2pro.com/p2p/digitalmarketing.jpeg</image:loc>
+      <image:title>Digital Marketing Mastery Program</image:title>
+      <image:caption>Meta &amp; Google Ads, paid media, funnels &amp; performance growth strategy at Pixel2Pro Pakistan</image:caption>
+    </image:image>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/courses/shopify-growth</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://pixel2pro.com/p2p/shopify.jpeg</image:loc>
+      <image:title>Shopify Store Development &amp; Management</image:title>
+      <image:caption>E-commerce operations, theme customization &amp; guaranteed internship at Pixel2Pro Pakistan</image:caption>
+    </image:image>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/courses/ai-freelancing</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://pixel2pro.com/p2p/AIfrelancing.jpeg</image:loc>
+      <image:title>AI Foundation and Freelancing Course</image:title>
+      <image:caption>AI tools for study, work &amp; daily life with online earning guidance at Pixel2Pro Pakistan</image:caption>
+    </image:image>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/faculty</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/about</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/contact</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/join</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/privacy</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/terms</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
   <url>
     <loc>https://pixel2pro.com/faq</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://pixel2pro.com/refund-policy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://pixel2pro.com/team</loc>
+    <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+
+  <url>
+    <loc>https://pixel2pro.com/team</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
 </urlset>

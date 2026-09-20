@@ -22,8 +22,8 @@ INSERT INTO public.courses (
   'published',
   '4-Month Full-Stack Development, AI Coding Workflow & Practical Project Building',
   'A hands-on 4-month cohort designed to turn learners into practical software builders. The program focuses on modern development workflows, AI-assisted coding, debugging, deployment, and real-world project shipping so students can learn, prompt, generate, understand, debug, improve, and deploy with confidence.',
-  'Hakamtechsol Technical Board',
-  'Enterprise Software Leads',
+  'Hunain Haider',
+  'Full-Stack Developer & AI Instructor',
   '[
     "Build responsive web interfaces with modern frontend workflows.",
     "Use AI tools to generate, explain, and improve production-ready code.",
@@ -84,8 +84,8 @@ INSERT INTO public.courses (
   'published',
   'Meta & Google Ads, Paid Media, Funnels & Performance Growth Strategy',
   'A growth-focused program covering paid media, analytics, content systems, funnels, and repeatable campaign optimization.',
-  'Maha Siddiqui',
-  'Performance Growth Strategist',
+  'M Junaid Shahid',
+  'Digital Marketing & AI Skills Trainer',
   '[
     "Launch performance campaigns across major channels",
     "Read analytics and improve conversion funnels",
@@ -126,7 +126,7 @@ INSERT INTO public.courses (
 );
 
 -- ============================================================
--- 3. AI FOUNDATION AND FREELANCING
+-- 3. AI Foundation & Freelancing
 -- ============================================================
 INSERT INTO public.courses (
   course_name, program_name, category, track, duration, sessions, level,
@@ -134,8 +134,8 @@ INSERT INTO public.courses (
   description, overview, instructor, instructor_role,
   outcomes, tools, curriculum, industry_trends, impact_headline, impact_metrics
 ) VALUES (
-  'AI Foundation and Freelancing',
-  'AI Foundation and Freelancing',
+  'AI Foundation & Freelancing',
+  'AI Foundation & Freelancing',
   'AI & Freelancing',
   'AI Track',
   '2 Months',
@@ -145,8 +145,8 @@ INSERT INTO public.courses (
   'published',
   'AI Tools for Study, Work & Daily Life with Online Earning Guidance',
   'A practical AI foundation course designed for everyone — students, job seekers, working professionals, women (housewives), and daily users. Learn the most popular AI tools for study, office work, content creation, and everyday productivity, with clear guidance on how to use these skills for career growth and online earning.',
-  'Zara Khan',
-  'AI Tools & Career Guidance Mentor',
+  'Arbaz Ali',
+  'Senior Software Developer & AI Foundation Mentor',
   '[
     "Use AI tools confidently in daily life, studies, and work",
     "Write effective prompts for ChatGPT and other AI tools",
@@ -201,8 +201,8 @@ INSERT INTO public.courses (
   'published',
   'E-Commerce Operations, Theme Customization & Guaranteed Internship',
   'The Shopify Store Development & Management Course is a comprehensive training program designed to equip students with the knowledge and practical skills required to build, customize, manage, optimize and launch professional Shopify e-commerce stores. Throughout this two-month course, students will learn every stage of Shopify store development from creating a Shopify account to designing a fully functional online store, integrating payment gateways, optimizing for search engines, implementing marketing strategies, understanding Shopify development basics using Liquid, and preparing a store for launch.',
-  'Hakamtechsol E-Commerce Lead',
-  'E-Commerce Product Lead',
+  'M. Ali',
+  'E-Commerce Growth Product Lead',
   '[
     "Understand the fundamentals of e-commerce and online business.",
     "Create and configure a Shopify store from scratch.",

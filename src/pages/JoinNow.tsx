@@ -239,13 +239,9 @@ setGovernmentId("");
                     <Mail size={16} className="shrink-0" />
                     <span className="break-all">contact@pixel2pro.com</span>
                   </a>
-<a href="tel:+923092271214" className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-slate-700 transition hover:border-slate-300 hover:bg-white hover:text-black">
+<a href="tel:+923167853795" className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-slate-700 transition hover:border-slate-300 hover:bg-white hover:text-black">
                     <Phone size={16} className="shrink-0" />
-                    <span>+92 309 227 1214</span>
-                  </a>
-                  <a href="tel:+923182484396" className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-slate-700 transition hover:border-slate-300 hover:bg-white hover:text-black">
-                    <Phone size={16} className="shrink-0" />
-                    <span>+92 318 248 4396</span>
+                    <span>+92 316 785 3795</span>
                   </a>
                 </div>
               </div>
@@ -255,7 +251,7 @@ setGovernmentId("");
                 <ul className="space-y-3">
                   {[
                     "Cohort-based active learning environment",
-                    "Direct access to industry mentors & office hours",
+                    "Direct access to industry mentors",
                     "Premium project feedback and review labs",
                     "Verification-ready credential on completion",
                     "Access to Pixel2Pro alumni channel & network"

@@ -18,7 +18,7 @@ const faculty: FacultyMember[] = [
     name: "Arbaz Ali",
     specialty: "AI Foundation and Freelancing",
     background:
-      "Senior Software Developer with 7+ years of experience spanning United Bank Limited (Senior Java Software Engineer), HakamTechSol (Founder & Senior Software Developer), BariTechSol, and TRAFiX LLC, now teaching practical software development at Pixel2Pro.",
+      "Senior Software Developer with 7+ years of experience spanning United Bank Limited (Senior Java Software Engineer), HakamTechSol (Senior Software Developer), BariTechSol, and TRAFiX LLC, now teaching practical software development at Pixel2Pro.",
     image: arbazImg,
     linkedin: "https://www.linkedin.com/in/arbaz-ali-7746a0404/",
   },
@@ -48,10 +48,26 @@ const faculty: FacultyMember[] = [
   },
 ];
 
+const facultyJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Pixel2Pro Faculty and Mentors",
+  url: "https://pixel2pro.com/faculty",
+  itemListElement: faculty.map((f, i) => ({
+    "@type": "Person",
+    position: i + 1,
+    name: f.name,
+    jobTitle: f.specialty,
+    description: f.background,
+    worksFor: { "@type": "Organization", name: "Pixel2Pro", url: "https://pixel2pro.com" },
+  })),
+};
+
 const Faculty = () => (
   <Layout
     title="Our Faculty & Mentors"
-    description="Meet Pixel2Pro's industry expert mentors and faculty members specializing in AI, E-Commerce, Development, Performance Ads, Creative Media, and Amazon PL."
+    description="Meet Pixel2Pro's industry expert mentors and faculty members specializing in AI, E-Commerce, Development, and Performance Ads."
+    jsonLd={[facultyJsonLd]}
   >
     {/* Header Section */}
     <section className="border-b border-slate-200 bg-gradient-to-b from-slate-50 to-white py-12 md:py-20">

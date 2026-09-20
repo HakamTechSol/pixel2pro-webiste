@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react";
-import { courses } from "@/data/courses";
+import { useWebsiteCourses } from "@/lib/useCourses";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { data: courses } = useWebsiteCourses();
 
   return (
     <footer className="relative z-10 w-full border-t border-zinc-900 bg-black text-slate-400 select-none">
@@ -128,14 +129,8 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="shrink-0 text-slate-500" />
-                <a href="tel:+923092271214" className="transition-colors hover:text-white">
-                  +92 309 227 1214
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={16} className="shrink-0 text-slate-500" />
-                <a href="tel:+923182484396" className="transition-colors hover:text-white">
-                  +92 318 248 4396
+                <a href="tel:+923167853795" className="transition-colors hover:text-white">
+                  +92 316 785 3795
                 </a>
               </li>
               <li className="flex items-start gap-3">

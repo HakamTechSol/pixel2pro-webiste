@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 
 const sections = [
@@ -16,7 +15,7 @@ const sections = [
   },
   {
     title: "4. Refund Policy",
-    body: "Refund eligibility is governed by our Refund Policy. Refund requests are reviewed against cohort start dates, consumed sessions, administrative processing, and program-specific admission conditions. Please read the full policy before enrolling.",
+    body: "Refund requests are reviewed on a case-by-case basis against cohort start dates, sessions already consumed, administrative processing, and program-specific admission conditions. Contact our support team with your enrollment details to begin a refund review.",
   },
   {
     title: "5. Course Access and Cohort Participation",
@@ -44,7 +43,7 @@ const sections = [
   },
   {
     title: "11. Termination",
-    body: "We may suspend or terminate access to the platform or a program for violations of these terms, non-payment of fees, or conduct that is harmful to other learners. Upon termination, you must stop using the materials; in limited cases, partial refunds may apply per the Refund Policy.",
+    body: "We may suspend or terminate access to the platform or a program for violations of these terms, non-payment of fees, or conduct that is harmful to other learners. Upon termination, you must stop using the materials; in limited cases, partial refunds may apply per our refund terms.",
   },
   {
     title: "12. Governing Law",
@@ -56,7 +55,7 @@ const sections = [
   },
   {
     title: "14. Contact",
-    body: "If you have questions about these Terms & Conditions, email contact@pixel2pro.com, call +92 309 227 1214, or visit our Contact page.",
+    body: "If you have questions about these Terms & Conditions, email contact@pixel2pro.com, call +92 316 785 3795, or visit our Contact page.",
   },
 ];
 
@@ -83,9 +82,7 @@ const Terms = () => (
               <p className="mt-2 leading-7 text-slate-600">{section.body}</p>
             </div>
           ))}
-          <p className="leading-7 text-slate-600">
-            Related policies: <Link to="/privacy" className="font-semibold text-black underline underline-offset-4">Privacy Policy</Link> &middot; <Link to="/refund-policy" className="font-semibold text-black underline underline-offset-4">Refund Policy</Link> &middot; <Link to="/faq" className="font-semibold text-black underline underline-offset-4">FAQ</Link>
-          </p>
+          
         </div>
       </div>
     </section>

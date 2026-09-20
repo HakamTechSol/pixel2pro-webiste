@@ -8,42 +8,87 @@ interface LayoutProps {
   children: ReactNode;
   title?: string;
   description?: string;
+  ogType?: string;
+  ogImage?: string;
+  keywords?: string;
+  jsonLd?: object[];
 }
 
 const SITE_URL = "https://pixel2pro.com";
+const LOGO_URL = `${SITE_URL}/logo.png`;
 
-const Layout = ({ children, title, description }: LayoutProps) => {
+const defaultTitle =
+  "Pixel2Pro - Best Online Courses in Pakistan | Next-Gen Development, AI Freelancing, Digital Marketing, Shopify";
+const defaultDesc =
+  "Pixel2Pro is a premium educational organization in Pakistan offering professional learning tracks in Next-Gen Development, AI Foundation & Freelancing, Digital Marketing, and Shopify.";
+const OG_IMAGE = `${SITE_URL}/og-image.png`;
+
+const upsertMeta = (selector: string, attrs: Record<string, string>, content: string) => {
+  let el = document.head.querySelector(selector) as HTMLMetaElement | null;
+  if (!el) {
+    el = document.createElement("meta");
+    Object.entries(attrs).forEach(([k, v]) => el!.setAttribute(k, v));
+    document.head.appendChild(el);
+  }
+  el.content = content;
+};
+
+const upsertLink = (selector: string, attrs: Record<string, string>) => {
+  let el = document.head.querySelector(selector) as HTMLLinkElement | null;
+  if (!el) {
+    el = document.createElement("link");
+    Object.entries(attrs).forEach(([k, v]) => el!.setAttribute(k, v));
+    document.head.appendChild(el);
+  } else {
+    Object.entries(attrs).forEach(([k, v]) => el!.setAttribute(k, v));
+  }
+};
+
+const injectJsonLd = (blocks: object[] | undefined) => {
+  document.head.querySelectorAll('script[data-seo="page"]').forEach((s) => s.remove());
+  if (!blocks?.length) return;
+  blocks.forEach((block) => {
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.setAttribute("data-seo", "page");
+    script.textContent = JSON.stringify(block);
+    document.head.appendChild(script);
+  });
+};
+
+const Layout = ({
+  children,
+  title,
+  description,
+  ogType = "website",
+  ogImage,
+  keywords,
+  jsonLd,
+}: LayoutProps) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const defaultTitle = "Pixel2Pro - Best Online Courses in Pakistan | Digital Marketing, Shopify, Graphic Design, Amazon VA Training";
-    document.title = title ? `${title} | Pixel2Pro` : defaultTitle;
-
-    const defaultDesc = "Pixel2Pro is a premium educational organization and research platform in Pakistan offering professional learning tracks in Digital Marketing, Shopify, Graphic Design, Amazon VA, AI Freelancing, and Web Development.";
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute("content", description || defaultDesc);
-    }
-
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) {
-      ogTitle.setAttribute("content", title ? `${title} | Pixel2Pro` : "Pixel2Pro - Best Online Courses in Pakistan");
-    }
-    const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) {
-      ogDesc.setAttribute("content", description || defaultDesc);
-    }
-
+    const pageTitle = title ? `${title} | Pixel2Pro` : defaultTitle;
+    const pageDesc = description || defaultDesc;
     const pageUrl = `${SITE_URL}${pathname === "/" ? "" : pathname}`;
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute("href", pageUrl || SITE_URL);
-    }
-    const ogUrl = document.querySelector('meta[property="og:url"]');
-    if (ogUrl) {
-      ogUrl.setAttribute("content", pageUrl || SITE_URL);
-    }
-  }, [title, description, pathname]);
+
+    document.title = pageTitle;
+    upsertMeta('meta[name="description"]', { name: "description" }, pageDesc);
+    upsertMeta('meta[name="keywords"]', { name: "keywords" }, keywords || defaultDesc);
+    upsertMeta('meta[property="og:title"]', { property: "og:title" }, pageTitle);
+    upsertMeta('meta[property="og:description"]', { property: "og:description" }, pageDesc);
+    upsertMeta('meta[property="og:type"]', { property: "og:type" }, ogType);
+    upsertMeta('meta[property="og:url"]', { property: "og:url" }, pageUrl);
+    upsertMeta('meta[property="og:image"]', { property: "og:image" }, ogImage || OG_IMAGE);
+    upsertMeta('meta[property="og:site_name"]', { property: "og:site_name" }, "Pixel2Pro");
+    upsertMeta('meta[name="twitter:card"]', { name: "twitter:card" }, "summary_large_image");
+    upsertMeta('meta[name="twitter:title"]', { name: "twitter:title" }, pageTitle);
+    upsertMeta('meta[name="twitter:description"]', { name: "twitter:description" }, pageDesc);
+    upsertMeta('meta[name="twitter:image"]', { name: "twitter:image" }, ogImage || OG_IMAGE);
+    upsertLink('link[rel="canonical"]', { rel: "canonical", href: pageUrl });
+
+    injectJsonLd(jsonLd);
+  }, [title, description, ogType, ogImage, keywords, jsonLd, pathname]);
 
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-hidden bg-white text-black">

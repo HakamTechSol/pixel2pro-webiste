@@ -36,7 +36,7 @@ const faqs = [
   {
     question: "Do you offer refunds?",
     answer:
-      "Yes, refunds are handled on a case-by-case basis under our Refund Policy. Eligibility depends on the cohort start date, sessions already consumed, and your specific program. Read the full policy or contact support with your enrollment details.",
+      "Yes, refunds are handled on a case-by-case basis. Eligibility depends on the cohort start date, sessions already consumed, administrative processing, and your specific program. If you believe you qualify, contact our support team with your enrollment details and we will review your case.",
   },
   {
     question: "Will I get a certificate after completing the program?",
@@ -66,14 +66,25 @@ const faqs = [
   {
     question: "How can I contact support?",
     answer:
-      "You can reach us through the Contact page, email us at contact@pixel2pro.com, call +92 309 227 1214, or message us on WhatsApp at +92 318 248 4396.",
+      "You can reach us through the Contact page, email us at contact@pixel2pro.com, or call/WhatsApp us at +92 316 785 3795.",
   },
 ];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
 
 const Faq = () => (
   <Layout
     title="Frequently Asked Questions"
     description="Answers to the most common questions about Pixel2Pro programs, enrollment, fees, classes, certificates, refunds, and support."
+    jsonLd={[faqJsonLd]}
   >
     <section className="border-b border-slate-200 bg-slate-50 py-10 md:py-16">
       <div className="container max-w-4xl">
@@ -98,7 +109,7 @@ const Faq = () => (
           ))}
         </Accordion>
         <p className="mt-6 text-sm text-slate-500">
-          Still have questions? Visit our <Link to="/contact" className="font-semibold text-black underline underline-offset-4">Contact page</Link> and our team will reply within one business day.
+         Still have Questions? Reach out to us via <Link to="/contact" className="font-semibold text-black underline underline-offset-4">Contact Us</Link> page and our representative will answer you.
         </p>
       </div>
     </section>

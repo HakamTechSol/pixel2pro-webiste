@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRecords } from "./supabaseClient";
 import { courses, type Course } from "../data/courses";
+import type { FeePlan } from "./fee-plans";
 
 export interface DbCourse {
   id: string;
@@ -22,6 +23,9 @@ export interface DbCourse {
   hours_per_class: number;
   admission_fee: number | null;
   monthly_fee: number;
+  it_discount_monthly_fee: number | null;
+  it_discount_registration_fee: number | null;
+  fee_plans?: FeePlan[] | null;
   track: string;
   program_name: string | null;
   sessions: string;
@@ -41,8 +45,23 @@ export interface DbCourse {
 
 const COURSES_PARAMS = "?select=*&status=eq.published&order=created_at.asc";
 
+function parseDbFeePlans(value: FeePlan[] | null | undefined): FeePlan[] | undefined {
+  if (!Array.isArray(value) || value.length === 0) return undefined;
+  const valid = value.filter(
+    (p) =>
+      typeof p?.type === "string" &&
+      ["monthly", "lump-sum", "installment"].includes(p.type) &&
+      typeof p?.totalFee === "number",
+  );
+  return valid.length ? valid : undefined;
+}
+
 function mapDbCourse(c: DbCourse, index: number): Course {
-  const normalized = (s: string) => s.toLowerCase().trim();
+  const normalized = (s: string) =>
+    s
+      .toLowerCase()
+      .trim()
+      .replace(/&/g, "and");
   const match =
     courses.find((s) => normalized(s.id) === normalized(c.id)) ||
     courses.find((s) => {
@@ -55,8 +74,18 @@ function mapDbCourse(c: DbCourse, index: number): Course {
     .map((t) => match?.toolLogos.find((l) => normalized(l.name) === normalized(t)))
     .filter(Boolean) as { name: string; image: string }[];
 
+  const feePlans = parseDbFeePlans(c.fee_plans) ?? match?.feePlans ?? [];
+  const monthlyPlan = feePlans.find((p) => p.type === "monthly");
+  const monthlyFee = monthlyPlan?.monthlyFee ?? (c.monthly_fee || match?.monthlyFee);
+  const admissionFee =
+    monthlyPlan != null
+      ? monthlyPlan.registrationFee
+      : c.admission_fee != null
+        ? c.admission_fee
+        : match?.admissionFee;
+
   return {
-    id: c.id,
+    id: String(c.id),
     number: c.home_order != null ? String(c.home_order).padStart(2, "0") : (match?.number ?? String(index + 1).padStart(2, "0")),
     track: c.track || c.category || match?.track || "Program",
     title: c.course_name || match?.title || "Program",
@@ -67,8 +96,13 @@ function mapDbCourse(c: DbCourse, index: number): Course {
     sessions: c.sessions || match?.sessions || `${c.classes_per_week || 2} Classes/Week`,
     level: c.level || match?.level || "Beginner",
     price: c.price || match?.price || 0,
-    admissionFee: c.admission_fee != null ? c.admission_fee : match?.admissionFee,
-    monthlyFee: c.monthly_fee || match?.monthlyFee,
+    admissionFee,
+    monthlyFee,
+    itDiscountMonthlyFee:
+      c.it_discount_monthly_fee ?? match?.itDiscountMonthlyFee,
+    itDiscountRegistrationFee:
+      c.it_discount_registration_fee ?? match?.itDiscountRegistrationFee,
+    feePlans,
     image: c.image_url || c.thumbnail || match?.image || "",
     showOnHome: c.show_on_home != null ? Boolean(c.show_on_home) : (match?.showOnHome ?? true),
     homeOrder: c.home_order ?? match?.homeOrder,
@@ -106,6 +140,22 @@ export function useWebsiteCourses() {
 
 export function useCourseById(id: string | undefined) {
   const { data, loading, fromDatabase } = useWebsiteCourses();
-  const course = useMemo(() => data.find((c) => c.id === id), [data, id]);
+  const course = useMemo(() => {
+    if (!id) return undefined;
+    const normalized = (s: string) =>
+      String(s)
+        .toLowerCase()
+        .trim()
+        .replace(/&/g, "and");
+    const direct = data.find((c) => normalized(c.id) === normalized(id));
+    if (direct) return direct;
+    const staticMatch = courses.find((s) => normalized(s.id) === normalized(id));
+    if (!staticMatch) return undefined;
+    return data.find(
+      (c) =>
+        normalized(c.programName).includes(normalized(staticMatch.programName)) ||
+        normalized(staticMatch.programName).includes(normalized(c.programName)),
+    );
+  }, [data, id]);
   return { course, loading, fromDatabase };
 }

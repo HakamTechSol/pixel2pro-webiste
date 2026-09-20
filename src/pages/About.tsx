@@ -2,17 +2,21 @@ import { Target, Eye, BookOpen, Users } from "lucide-react";
 import Layout from "@/components/Layout";
 import aboutHero from "@/assets/about-hero.jpg";
 
-const team = [
-  { name: "Arjun Mehta", role: "Founder & CEO", initials: "AM" },
-  { name: "Sarah Chen", role: "Head of Curriculum", initials: "SC" },
-  { name: "David Park", role: "Lead Instructor", initials: "DP" },
-  { name: "Emily Zhang", role: "Marketing Director", initials: "EZ" },
-];
-
 const About = () => (
   <Layout
     title="About Us"
     description="Learn more about Pixel2Pro, powered by Hakamtechsol. Our mission is to provide quality IT education, professional training, and educational research pathways in Pakistan."
+    jsonLd={[
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        name: "About Pixel2Pro",
+        url: "https://pixel2pro.com/about",
+        description:
+          "Pixel2Pro is a premium educational organization and research platform in Pakistan, powered by Hakamtechsol.",
+        isPartOf: { "@type": "WebSite", name: "Pixel2Pro", url: "https://pixel2pro.com" },
+      },
+    ]}
   >
     {/* Hero Banner */}
     <section className="relative w-full h-[340px] md:h-[420px] overflow-hidden">
@@ -86,26 +90,6 @@ const About = () => (
               To become a leading platform for professional IT education, helping learners worldwide achieve financial independence and career growth.
             </p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Team */}
-    <section className="py-16 md:py-20">
-      <div className="container max-w-3xl">
-        <h2 className="text-2xl md:text-3xl font-heading font-bold text-center mb-10">Our Team</h2>
-        <div className="grid sm:grid-cols-2 gap-6">
-          {team.map((t) => (
-            <div key={t.name} className="bg-card border rounded-lg p-6 flex items-center gap-4 shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-heading font-bold text-sm">
-                {t.initials}
-              </div>
-              <div>
-                <h3 className="font-heading font-semibold text-sm">{t.name}</h3>
-                <p className="text-xs text-muted-foreground">{t.role}</p>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>

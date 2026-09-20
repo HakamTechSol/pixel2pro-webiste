@@ -14,7 +14,6 @@ import OurTeam from "./pages/OurTeam";
 import Dashboard from "./pages/Dashboard";
 import Faculty from "./pages/Faculty";
 import EnrollmentForm from "./pages/JoinNow";
-import Legal from "./pages/Legal";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Faq from "./pages/Faq";
@@ -43,7 +42,6 @@ const App = () => (
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/faq" element={<Faq />} />
-          <Route path="/refund-policy" element={<Legal />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

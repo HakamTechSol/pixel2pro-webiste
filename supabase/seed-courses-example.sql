@@ -52,8 +52,8 @@ INSERT INTO public.courses (
   'A hands-on 4-month cohort designed to turn learners into practical software builders. The program focuses on AI-assisted coding, debugging, deployment, and shipping real projects.', -- overview (detail page)
   '',                                                    -- image_url (optional, fallback to local image)
   '',                                                    -- thumbnail (optional)
-  'Hakamtechsol Technical Board',                        -- instructor
-  'Enterprise Software Leads',                           -- instructor_role
+  'Hunain Haider',                        -- instructor
+  'Full-Stack Developer & AI Instructor',                           -- instructor_role
   '[
     "Build responsive web interfaces with modern frontend workflows.",
     "Use AI tools to generate, explain, and improve production-ready code."
