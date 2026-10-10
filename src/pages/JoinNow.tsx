@@ -17,8 +17,8 @@ import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { courses, professionalProfiles } from "@/data/courses";
 import { insertEnrollment, EnrollmentPayload } from "@/lib/enrollment";
+import { isPakistaniMobileNumber } from "@/lib/phone-validation";
 import { fetchRecords } from "@/lib/supabaseClient";
-import { toast } from "sonner";
 import { notifySubmission } from "@/lib/notifications";
 
 interface ApiCourse {
@@ -50,6 +50,7 @@ const JoinNow = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   // Fetch published courses from API
   useEffect(() => {
@@ -63,7 +64,6 @@ const JoinNow = () => {
         if (!cancelled) setApiCourses(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Failed to load programs from API:", error);
-        if (!cancelled) toast.error("Could not load programs. Showing default tracks.");
       } finally {
         if (!cancelled) setCoursesLoading(false);
       }
@@ -120,8 +120,8 @@ const JoinNow = () => {
 
     if (!whatsappNumber.trim()) {
       newErrors.whatsapp_number = "WhatsApp number is required";
-    } else if (whatsappNumber.trim().length < 7) {
-      newErrors.whatsapp_number = "Please enter a valid WhatsApp number";
+    } else if (!isPakistaniMobileNumber(whatsappNumber.trim())) {
+      newErrors.whatsapp_number = "Enter a valid Pakistani mobile number (11 digits, e.g. 03001234567)";
     }
 
 if (!cityCountry.trim()) {
@@ -151,8 +151,9 @@ if (!cityCountry.trim()) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    setSubmitError("");
+
     if (!validateForm()) {
-      toast.error("Please fill in all required fields correctly.");
       return;
     }
 
@@ -175,11 +176,10 @@ if (!cityCountry.trim()) {
       await notifySubmission("enrollment", { ...payload, exact_program: selectedProgramName || selectedProgramId });
       setIsSubmitting(false);
       setShowSuccessModal(true);
-      toast.success("Enrollment request submitted successfully!");
     } catch (error) {
       setIsSubmitting(false);
       console.error("Enrollment failed:", error);
-      toast.error("Submission failed. Please check your internet connection and try again.");
+      setSubmitError("Submission failed. Please check your internet connection and try again.");
     }
   };
 
@@ -332,16 +332,18 @@ setGovernmentId("");
                         <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                         <input
                           id="whatsappNumber"
-                          type="text"
+                          type="tel"
+                          inputMode="numeric"
+                          maxLength={11}
                           value={whatsappNumber}
-                          onChange={(e) => setWhatsappNumber(e.target.value)}
-                          placeholder="e.g. +92 300 1234567"
+                          onChange={(e) => setWhatsappNumber(e.target.value.replace(/\D/g, "").slice(0, 11))}
+                          placeholder="e.g. 03001234567"
                           className={`w-full h-12 pl-11 pr-4 rounded-xl border ${
                             errors.whatsapp_number ? "border-rose-500 bg-rose-50/20" : "border-slate-200 bg-slate-50 focus:bg-white"
                           } text-sm font-medium text-slate-900 outline-none transition focus:border-black placeholder:text-slate-400`}
                         />
                       </div>
-                      <p className="text-[11px] text-slate-500">Include country code (e.g. +92)</p>
+                      <p className="text-[11px] text-slate-500">Enter 11 digits starting with 03 (e.g. 03001234567)</p>
                       {errors.whatsapp_number && (
                         <p className="text-xs font-medium text-rose-500 flex items-center gap-1">
                           <AlertCircle size={12} /> {errors.whatsapp_number}
@@ -499,6 +501,11 @@ setGovernmentId("");
                   </div>
 
                   {/* Submit Button */}
+                  {submitError && (
+                    <p className="mt-4 text-sm font-medium text-rose-500 flex items-center gap-1">
+                      <AlertCircle size={14} /> {submitError}
+                    </p>
+                  )}
                   <Button
                     type="submit"
                     disabled={isSubmitting}
@@ -572,5 +579,4 @@ setGovernmentId("");
 };
 
 export default JoinNow;
-
 

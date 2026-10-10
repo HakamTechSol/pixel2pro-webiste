@@ -1,4 +1,4 @@
-﻿import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, BadgeCheck, Building2, MessageCircleMore, Network, Search } from "lucide-react";
 import Layout from "@/components/Layout";
@@ -7,7 +7,7 @@ import ToolsCarousel from "@/components/ToolsCarousel";
 import { Button } from "@/components/ui/button";
 import { useWebsiteCourses } from "@/lib/useCourses";
 import { useSiteSettings } from "@/lib/useSiteSettings";
-import heroVideo from "@/assets/home-section-hero.mp4";
+import { courseSlug } from "@/lib/slug";
 
 const VideoTestimonials = lazy(() => import("@/components/VideoTestimonials"));
 
@@ -29,15 +29,49 @@ const Index = () => {
     ai_banner_text: bannerText,
     ai_banner_subtext: bannerSubtext,
     hero_images: heroImages,
-    hero_video: heroVideoUrl,
   } = settings;
 
   const heroMedia = Array.isArray(heroImages) && heroImages.length > 0 ? heroImages : [];
   const [heroIndex, setHeroIndex] = useState(0);
 
+  const homeCourses = courses
+    .filter((c) => c.showOnHome !== false)
+    .sort((a, b) => (a.homeOrder ?? 999) - (b.homeOrder ?? 999));
+
+  const getPerView = () => {
+    const w = typeof window !== "undefined" ? window.innerWidth : 1024;
+    if (w >= 1024) return 3;
+    if (w >= 640) return 2;
+    return 1;
+  };
+
+  const [perView, setPerView] = useState<number>(getPerView);
+  const [programIndex, setProgramIndex] = useState(0);
+
+  useEffect(() => {
+    const compute = () => setPerView(getPerView());
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
+
+  const maxIndex = Math.max(0, homeCourses.length - perView);
+
+  useEffect(() => {
+    setProgramIndex((i) => Math.min(i, maxIndex));
+    if (homeCourses.length <= perView) {
+      setProgramIndex(0);
+      return;
+    }
+    const timer = setInterval(() => {
+      setProgramIndex((i) => (i >= maxIndex ? 0 : i + 1));
+    }, 10000);
+    return () => clearInterval(timer);
+  }, [homeCourses.length, perView, maxIndex]);
+
   useEffect(() => {
     if (heroMedia.length <= 1) return;
-    const timer = setInterval(() => setHeroIndex((i) => (i + 1) % heroMedia.length), 4000);
+    const timer = setInterval(() => setHeroIndex((i) => (i + 1) % heroMedia.length), 8000);
     return () => clearInterval(timer);
   }, [heroMedia.length]);
 
@@ -82,7 +116,7 @@ const Index = () => {
               "@type": "ListItem",
               position: 1,
               name: "Next-Gen Developer: AI Coding & Vibe Coding",
-              url: "https://pixel2pro.com/courses/next-gen-developer",
+              url: "https://pixel2pro.com/courses/next-gen-developer-ai-coding-and-vibe-coding",
             },
             {
               "@type": "ListItem",
@@ -94,7 +128,7 @@ const Index = () => {
               "@type": "ListItem",
               position: 3,
               name: "AI Foundation and Freelancing",
-              url: "https://pixel2pro.com/courses/ai-freelancing",
+              url: "https://pixel2pro.com/courses/ai-foundation-and-freelancing",
             },
             {
               "@type": "ListItem",
@@ -157,7 +191,7 @@ const Index = () => {
                     <button
                       key={course.id}
                       type="button"
-                      onMouseDown={(e) => { e.preventDefault(); navigate(`/courses/${course.id}`); }}
+                      onMouseDown={(e) => { e.preventDefault(); navigate(`/courses/${courseSlug(course)}`); }}
                       className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left hover:bg-slate-50 transition"
                     >
                       <div className="pr-4">
@@ -184,6 +218,8 @@ const Index = () => {
                         key={i}
                         src={src}
                         alt={`Hero image ${i + 1}`}
+                        loading={i === 0 ? "eager" : "lazy"}
+                        decoding="async"
                         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${i === heroIndex ? "opacity-100" : "opacity-0"}`}
                       />
                     ))}
@@ -201,14 +237,7 @@ const Index = () => {
                     )}
                   </>
                 ) : (
-                  <video
-                    src={heroVideoUrl || heroVideo}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="h-full w-full object-cover"
-                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-white to-slate-50" />
                 )}
               </div>
             </div>
@@ -282,15 +311,38 @@ const Index = () => {
               View programs
             </Link>
           </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {courses
-              .filter(c => c.showOnHome !== false)
-              .sort((a, b) => (a.homeOrder ?? 999) - (b.homeOrder ?? 999))
-              .slice(0, 3)
-              .map((course) => (
-                <CourseCard key={course.id} course={course} />
-              ))}
+          <div className="relative -mx-2 sm:-mx-3">
+            <div className="overflow-x-clip overflow-y-visible px-2 sm:px-3">
+              <div
+                className="flex items-stretch transition-transform duration-700 ease-out will-change-transform [backface-visibility:hidden]"
+                style={{ transform: `translateX(-${(programIndex * 100) / perView}%)` }}
+              >
+                {homeCourses.map((course) => (
+                  <div
+                    key={course.id}
+                    className="h-full shrink-0 px-2 sm:px-2.5"
+                    style={{ width: `${100 / perView}%` }}
+                  >
+                    <CourseCard course={course} />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
+          {homeCourses.length > perView && (
+            <div className="mt-8 flex justify-center gap-2">
+              {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+                <button
+                  key={i}
+                  aria-label={`Go to slide ${i + 1}`}
+                  onClick={() => setProgramIndex(i)}
+                  className={`h-2 rounded-full transition-all ${
+                    i === programIndex ? "w-6 bg-black" : "w-2 bg-slate-300 hover:bg-slate-400"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

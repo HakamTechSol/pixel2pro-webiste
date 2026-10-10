@@ -3,6 +3,7 @@ import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { courses } from "@/data/courses";
+import { courseSlug } from "@/lib/slug";
 
 const enrolledCourses = courses.slice(0, 3);
 
@@ -27,14 +28,18 @@ const Dashboard = () => (
             return (
               <Link
                 key={course.id}
-                to={`/courses/${course.id}`}
+                to={`/courses/${courseSlug(course)}`}
                 className="rounded-lg border border-slate-200 bg-white p-5 transition hover:border-black hover:shadow-lg"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-xs font-bold uppercase tracking-wider text-slate-500">{course.track}</p>
                     <h2 className="mt-1 text-xl font-bold">{course.title}</h2>
-                    <p className="mt-1 text-sm text-slate-500">{course.duration} / {course.sessions}</p>
+                    <p className="mt-1 text-sm text-slate-500 whitespace-pre-line">
+                      {course.duration}
+                      {"\n"}
+                      {course.sessions.split("|").map((s) => s.trim()).filter(Boolean).join("\n")}
+                    </p>
                   </div>
                   <ArrowUpRight size={20} />
                 </div>

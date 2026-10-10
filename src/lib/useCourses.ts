@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRecords } from "./supabaseClient";
 import { courses, type Course } from "../data/courses";
+import { courseSlug, slugify } from "./slug";
 import type { FeePlan } from "./fee-plans";
 
 export interface DbCourse {
@@ -56,6 +57,14 @@ function parseDbFeePlans(value: FeePlan[] | null | undefined): FeePlan[] | undef
   return valid.length ? valid : undefined;
 }
 
+const normalizeHours = (s: string) =>
+  s
+    .replace(/\bhours\b/gi, "Hours")
+    .replace(/Classes\s*\/\s*Wk\b/gi, "Classes/Week")
+    .replace(/Classes\s*\/\s*K\b/gi, "Classes/Week")
+    .replace(/\bW\/K\b/g, "Week")
+    .replace(/\bWk\b/g, "Week");
+
 function mapDbCourse(c: DbCourse, index: number): Course {
   const normalized = (s: string) =>
     s
@@ -73,6 +82,13 @@ function mapDbCourse(c: DbCourse, index: number): Course {
   const toolLogos = tools
     .map((t) => match?.toolLogos.find((l) => normalized(l.name) === normalized(t)))
     .filter(Boolean) as { name: string; image: string }[];
+
+  const rawSessions = c.sessions || match?.sessions || `${c.classes_per_week || 2} Classes/Week`;
+  const sessionsWithHours = /hours/i.test(rawSessions)
+    ? rawSessions
+    : c.hours_per_class
+      ? `${rawSessions} | ${c.hours_per_class} Hours/Day`
+      : rawSessions;
 
   const feePlans = parseDbFeePlans(c.fee_plans) ?? match?.feePlans ?? [];
   const monthlyPlan = feePlans.find((p) => p.type === "monthly");
@@ -93,7 +109,7 @@ function mapDbCourse(c: DbCourse, index: number): Course {
     description: c.description || match?.description || "",
     category: c.category || match?.category || "General",
     duration: c.duration || match?.duration || "1 month",
-    sessions: c.sessions || match?.sessions || `${c.classes_per_week || 2} Classes/Week`,
+    sessions: normalizeHours(sessionsWithHours),
     level: c.level || match?.level || "Beginner",
     price: c.price || match?.price || 0,
     admissionFee,
@@ -115,7 +131,11 @@ function mapDbCourse(c: DbCourse, index: number): Course {
     curriculum: Array.isArray(c.curriculum) && c.curriculum.length ? c.curriculum : match?.curriculum ?? [],
     industryTrends: Array.isArray(c.industry_trends) && c.industry_trends.length ? c.industry_trends : match?.industryTrends ?? [],
     impactHeadline: c.impact_headline || match?.impactHeadline || "",
-    impactMetrics: Array.isArray(c.impact_metrics) && c.impact_metrics.length ? c.impact_metrics : match?.impactMetrics ?? [],
+    impactMetrics: (Array.isArray(c.impact_metrics) && c.impact_metrics.length ? c.impact_metrics : match?.impactMetrics ?? []).map((m) => ({
+      ...m,
+      value: normalizeHours(m.value),
+      label: normalizeHours(m.label),
+    })),
     defaultProfile: c.level || match?.defaultProfile || "Beginner",
   };
 }
@@ -147,6 +167,10 @@ export function useCourseById(id: string | undefined) {
         .toLowerCase()
         .trim()
         .replace(/&/g, "and");
+    const bySlug = data.find(
+      (c) => normalized(courseSlug(c)) === normalized(slugify(id)),
+    );
+    if (bySlug) return bySlug;
     const direct = data.find((c) => normalized(c.id) === normalized(id));
     if (direct) return direct;
     const staticMatch = courses.find((s) => normalized(s.id) === normalized(id));

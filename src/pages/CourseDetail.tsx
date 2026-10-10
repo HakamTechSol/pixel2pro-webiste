@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, BadgeCheck, CalendarDays, Check, Clock3, Layers3, PlayCircle, TrendingUp } from "lucide-react";
+import { ArrowLeft, CalendarDays, Check, Clock3, PlayCircle, TrendingUp } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -15,7 +15,9 @@ import {
 } from "@/components/ui/dialog";
 import { FeePlansPanel } from "@/components/FeePlans";
 import { useCourseById } from "@/lib/useCourses";
-import { getFeePlans, formatPKR } from "@/lib/fee-plans";
+import { getFeePlans } from "@/lib/fee-plans";
+import { toTitleCase } from "@/lib/text-format";
+import { courseSlug } from "@/lib/slug";
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -46,14 +48,26 @@ const CourseDetail = () => {
   const plans = getFeePlans(course);
   const itDiscountMonthlyFee = course.itDiscountMonthlyFee ?? 4500;
   const itDiscountRegistrationFee = course.itDiscountRegistrationFee ?? 3000;
-  const regularMonthlyFee = course.monthlyFee ?? 5000;
-  const regularAdmissionFee = course.admissionFee ?? 5000;
   const showItDiscount = itDiscountMonthlyFee > 0 && itDiscountRegistrationFee > 0;
+  const sessionLines = course.sessions.split("|").map((s) => s.trim()).filter(Boolean);
+  const isShopifyCourse = course.programName.toLowerCase().includes("shopify store development");
+  const shopifyHighlights = [
+    { value: "2 Months", label: "Cohort Duration" },
+    { value: "2 Classes/Week", label: "Interactive Sessions" },
+    { value: "2 Hours/Day", label: "Class Duration" },
+  ];
+  const shopifyHeroHighlights = isShopifyCourse ? shopifyHighlights : null;
+  const impactMetrics = isShopifyCourse ? shopifyHighlights : course.impactMetrics;
+
+  const sessionLabel = sessionLines.map(toTitleCase).join(" · ");
+  const feeModalSubtitle = sessionLabel
+    ? `${toTitleCase(course.duration)} with ${sessionLabel} — Choose a payment option below.`
+    : `${toTitleCase(course.duration)} — Choose a payment option below.`;
 
 return (
     <Layout
       title={`${course.programName} Course`}
-      description={`Master ${course.programName} with Pixel2Pro's premium cohort-based learning track. ${course.description} Duration: ${course.duration}, Level: ${course.level}.`}
+      description={`Master ${course.programName} with Pixel2Pro's premium cohort-based learning track. ${course.description} Duration: ${course.duration}.`}
     >
       <Helmet>
         <script type="application/ld+json">
@@ -61,7 +75,7 @@ return (
             "@context": "https://schema.org",
             "@type": "Course",
             "name": course.programName,
-            "description": `${course.overview} ${course.description} Duration: ${course.duration}. Level: ${course.level}.`,
+            "description": `${course.overview} ${course.description} Duration: ${course.duration}.`,
             "provider": {
               "@type": "Organization",
               "name": "Pixel2Pro",
@@ -69,8 +83,6 @@ return (
             },
             "inLanguage": "en",
             "courseMode": "Online",
-            "educationalLevel": course.level,
-            "coursePrerequisites": course.level,
             "image": course.image.startsWith("http")
               ? course.image
               : `https://pixel2pro.com${course.image}`,
@@ -79,7 +91,7 @@ return (
               "price": course.price || 0,
               "priceCurrency": "PKR",
               "availability": "https://schema.org/InStock",
-              "url": `https://pixel2pro.com/courses/${course.id}`
+              "url": `https://pixel2pro.com/courses/${courseSlug(course)}`
             },
             "hasCourseInstance": {
               "@type": "CourseInstance",
@@ -101,7 +113,7 @@ return (
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pixel2pro.com/" },
               { "@type": "ListItem", "position": 2, "name": "Courses", "item": "https://pixel2pro.com/courses" },
-              { "@type": "ListItem", "position": 3, "name": course.programName, "item": `https://pixel2pro.com/courses/${course.id}` }
+              { "@type": "ListItem", "position": 3, "name": course.programName, "item": `https://pixel2pro.com/courses/${courseSlug(course)}` }
             ]
           })}
         </script>
@@ -119,17 +131,34 @@ return (
               <h1 className="mt-3 text-4xl font-bold leading-tight md:text-6xl">{course.programName}</h1>
               <p className="mt-4 max-w-2xl text-lg text-slate-300">{course.description}</p>
             </div>
-            <div className="grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-3">
-              {[
-                { icon: Clock3, label: course.duration },
-                { icon: CalendarDays, label: course.sessions },
-                { icon: Layers3, label: course.level },
-              ].map((item) => (
-                <div key={item.label} className="rounded-lg border border-white/15 p-4">
-                  <item.icon size={18} className="text-slate-300" />
-                  <p className="mt-3 text-sm font-semibold">{item.label}</p>
-                </div>
-              ))}
+            <div className="flex max-w-3xl flex-wrap gap-3">
+              {shopifyHeroHighlights ? (
+                shopifyHeroHighlights.map((highlight) => (
+                  <span
+                    key={highlight.label}
+                    className="inline-flex min-h-14 flex-col justify-center rounded-xl border border-white/15 px-5 py-3"
+                  >
+                    <strong className="text-sm font-bold text-white md:text-base">{highlight.value}</strong>
+                    <span className="mt-0.5 text-xs font-medium text-slate-300">{highlight.label}</span>
+                  </span>
+                ))
+              ) : (
+                [
+                  { icon: Clock3, label: course.duration },
+                  ...sessionLines.map((line) => ({
+                    icon: line.toLowerCase().includes("classes") ? CalendarDays : Clock3,
+                    label: line,
+                  })),
+                ].map((item) => (
+                  <span
+                    key={item.label}
+                    className="inline-flex min-h-12 items-center gap-2.5 rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold md:text-base"
+                  >
+                    <item.icon size={18} className="shrink-0 text-slate-300" />
+                    {item.label}
+                  </span>
+                ))
+              )}
             </div>
           </div>
           <div className="overflow-hidden rounded-[24px] border border-slate-200 bg-white p-1 shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
@@ -155,7 +184,7 @@ return (
           <div className="rounded-lg bg-black p-5 text-white md:p-8">
             <h2 className="max-w-3xl text-2xl font-bold md:text-4xl">{course.impactHeadline}</h2>
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              {(course.impactMetrics.length ? course.impactMetrics : []).map((metric) => (
+              {(impactMetrics.length ? impactMetrics : []).map((metric) => (
                 <div key={metric.label} className="rounded-lg border border-white/15 p-5">
                   <p className="text-3xl font-bold">{metric.value}</p>
                   <p className="mt-1 text-sm text-slate-300">{metric.label}</p>
@@ -170,7 +199,7 @@ return (
       <section className="py-10 md:py-16">
         <div className="container grid gap-10 lg:grid-cols-[1fr_340px]">
           <Tabs defaultValue="description" className="min-w-0">
-            <TabsList className="mb-6 flex h-auto w-full justify-start gap-2 overflow-x-auto rounded-none bg-transparent p-0">
+            <TabsList className="mb-6 flex h-auto w-full justify-start gap-2 overflow-x-auto rounded-none bg-transparent p-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {["description", "curriculum", "industry", "outcomes"].map((tab) => (
                 <TabsTrigger
                   key={tab}
@@ -258,9 +287,12 @@ return (
             <div className="sticky top-24 rounded-lg border border-slate-200 bg-white p-5 shadow-xl">
               <PlayCircle size={24} />
               <h2 className="mt-4 text-2xl font-bold">Enroll in {course.title}</h2>
-              <p className="mt-2 text-sm text-slate-500">{course.duration} with {course.sessions.toLowerCase()}.</p>
+              <p className="mt-2 text-sm text-slate-500 whitespace-pre-line">
+                {course.duration}
+                {"\n"}
+                {sessionLines.join("\n")}
+              </p>
               <Button onClick={() => setShowFees(true)} className="mt-5 h-12 w-full rounded-full">Enroll Now</Button>
-              <p className="mt-3 text-center text-xs text-slate-400">Fee &amp; payment options shown before you enroll.</p>
             </div>
           </aside>
         </div>
@@ -277,63 +309,35 @@ return (
       </div>
 
       <Dialog open={showFees} onOpenChange={setShowFees}>
-        <DialogContent className="max-h-[85vh] max-w-lg overflow-y-auto">
+        <DialogContent className="max-h-[calc(100dvh-1rem)] w-[calc(100%-1rem)] max-w-md overflow-y-auto rounded-xl p-4 sm:max-w-4xl sm:p-6 lg:max-w-5xl">
           <DialogHeader>
-            <DialogTitle>Enroll in {course.title}</DialogTitle>
-            <DialogDescription>
-              {course.duration} with {course.sessions.toLowerCase()} — choose a payment option below.
-            </DialogDescription>
-          </DialogHeader>
-          <FeePlansPanel plans={plans} />
-          {showItDiscount && (
-            <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-              <div className="flex items-center gap-2">
-                <BadgeCheck size={16} className="shrink-0 text-emerald-600" />
-                <h3 className="text-sm font-bold text-emerald-800">
-                  Discount For IT Students &amp; Professionals
-                </h3>
+            <div className="flex flex-col gap-3 pr-8 sm:flex-row sm:items-start sm:justify-between sm:gap-4 sm:pr-10">
+              <div className="min-w-0 space-y-1.5 text-left">
+                <DialogTitle className="text-base leading-tight sm:text-lg">{course.title}</DialogTitle>
+                <DialogDescription className="text-xs leading-5 sm:text-sm">{feeModalSubtitle}</DialogDescription>
               </div>
-              <p className="mt-1 text-xs leading-5 text-emerald-700">
-                Special discounted pricing for IT students &amp; professionals:
-              </p>
-              <div className="mt-3 grid grid-cols-2 gap-3">
-                <div className="rounded-lg border border-emerald-200 bg-white p-3">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">
-                    Monthly Fee
-                  </p>
-                  <p className="mt-1 text-lg font-bold text-slate-900">
-                    {formatPKR(itDiscountMonthlyFee)}
-                  </p>
-                  <p className="text-[11px] text-slate-400 line-through">
-                    {formatPKR(regularMonthlyFee)}
-                  </p>
-                </div>
-                <div className="rounded-lg border border-emerald-200 bg-white p-3">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-600">
-                    Registration Fee
-                  </p>
-                  <p className="mt-1 text-lg font-bold text-slate-900">
-                    {formatPKR(itDiscountRegistrationFee)}
-                  </p>
-                  <p className="text-[11px] text-slate-400 line-through">
-                    {formatPKR(regularAdmissionFee)}
-                  </p>
-                </div>
-              </div>
+              <Link
+                to={`/join?track=${course.id}`}
+                onClick={() => setShowFees(false)}
+                className="w-full shrink-0 sm:w-auto"
+              >
+                <Button className="h-11 w-full rounded-full px-5 sm:w-auto sm:px-6">
+                  Enroll Now
+                </Button>
+              </Link>
             </div>
-          )}
-          <div className="mt-5 flex flex-col gap-2">
-            <Link to={`/join?track=${course.id}`} onClick={() => setShowFees(false)}>
-              <Button className="h-12 w-full rounded-full">Enroll Now</Button>
-            </Link>
-            <Button
-              variant="outline"
-              className="h-10 w-full rounded-full"
-              onClick={() => setShowFees(false)}
-            >
-              Cancel
-            </Button>
-          </div>
+          </DialogHeader>
+          <FeePlansPanel
+            plans={plans}
+            itDiscount={
+              showItDiscount
+                ? {
+                    monthlyFee: itDiscountMonthlyFee,
+                    registrationFee: itDiscountRegistrationFee,
+                  }
+                : undefined
+            }
+          />
         </DialogContent>
       </Dialog>
     </Layout>

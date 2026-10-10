@@ -16,7 +16,7 @@ INSERT INTO public.courses (
   'Development',
   'Development Track',
   '4 Months',
-  '2 Classes/Week | 2 hours/Day',
+  '2 Classes/Week | 2 Hours/Day',
   'Advanced',
   1000, 0, 1000, 3000, 2, 2,
   'published',
@@ -59,7 +59,7 @@ INSERT INTO public.courses (
   'Learn, Prompt, Generate, Understand, Debug, Improve, and Deploy in 4 Months',
   '[
     { "value": "4 Months", "label": "Cohort Duration" },
-    { "value": "2 Classes/Wk", "label": "Interactive Sessions" },
+    { "value": "2 Classes/Week", "label": "Interactive Sessions" },
     { "value": "AI + Vibe", "label": "Core Focus" }
   ]'
 );
@@ -78,7 +78,7 @@ INSERT INTO public.courses (
   'Marketing',
   'Marketing Track',
   '3 Months',
-  '2 Classes/Week | 2 hours/Day',
+  '2 Classes/Week | 2 Hours/Day',
   'Intermediate',
   1000, 0, 1000, 3000, 2, 2,
   'published',
@@ -120,7 +120,7 @@ INSERT INTO public.courses (
   'Turn Data, Creative, and Paid Media Into Measurable Growth',
   '[
     { "value": "3 Months", "label": "Program Length" },
-    { "value": "2 Classes/Wk", "label": "Interactive Sessions" },
+    { "value": "2 Classes/Week", "label": "Interactive Sessions" },
     { "value": "2 Hours/Day", "label": "Class Duration" }
   ]'
 );
@@ -139,7 +139,7 @@ INSERT INTO public.courses (
   'AI & Freelancing',
   'AI Track',
   '2 Months',
-  '2 Classes/Week | 2 hours/Day',
+  '2 Classes/Week | 2 Hours/Day',
   'Beginner',
   1000, 0, 1000, 3000, 2, 2,
   'published',
@@ -176,7 +176,7 @@ INSERT INTO public.courses (
   'Learn AI Tools That Fit Your Life — Study, Work, Create & Earn',
   '[
     { "value": "2 Months", "label": "Program Length" },
-    { "value": "2 Classes/Wk", "label": "Interactive Sessions" },
+    { "value": "2 Classes/Week", "label": "Interactive Sessions" },
     { "value": "2 Hours/Day", "label": "Class Duration" }
   ]'
 );
@@ -195,7 +195,7 @@ INSERT INTO public.courses (
   'E-Commerce',
   'E-Commerce Track',
   '2 Months',
-  '2 Classes/Week',
+  '2 Classes/Week | 2 Hours/Day',
   'Beginner',
   1000, 0, 1000, 3000, 2, 2,
   'published',

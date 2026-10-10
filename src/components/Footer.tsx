@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react";
 import { useWebsiteCourses } from "@/lib/useCourses";
+import { courseSlug } from "@/lib/slug";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -108,7 +109,7 @@ const Footer = () => {
               {courses.map((course) => (
                 <li key={course.id}>
                   <Link
-                    to={`/courses/${course.id}`}
+                    to={`/courses/${courseSlug(course)}`}
                     className="block max-w-xs truncate transition-colors hover:text-white"
                   >
                     {course.title}

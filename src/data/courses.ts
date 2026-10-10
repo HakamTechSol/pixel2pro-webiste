@@ -73,7 +73,7 @@ export const courses: Course[] = [
     description: "4-Month Full-Stack Development, AI Coding Workflow & Practical Project Building",
     category: "Development",
     duration: "4 Months",
-    sessions: "2 Classes/Week | 2 hours/Day",
+    sessions: "2 Classes/Week | 2 Hours/Day",
     level: "Advanced",
     price: 25000,
     feePlans: [
@@ -261,7 +261,7 @@ export const courses: Course[] = [
     impactHeadline: "Learn, Prompt, Generate, Understand, Debug, Improve, and Deploy in 4 Months",
     impactMetrics: [
       { value: "4 Months", label: "Cohort Duration" },
-      { value: "2 Classes/Wk", label: "Interactive Sessions" },
+      { value: "2 Classes/Week", label: "Interactive Sessions" },
       { value: "AI + Vibe", label: "Core Focus" }
     ],
     defaultProfile: "Student (CS / IT / Engineering)"
@@ -275,7 +275,7 @@ export const courses: Course[] = [
     description: "Meta & Google Ads, Paid Media, Funnels & Performance Growth Strategy",
     category: "Marketing",
     duration: "3 Months",
-    sessions: "2 Classes/Week | 2 hours/Day",
+    sessions: "2 Classes/Week | 2 Hours/Day",
     level: "Intermediate",
     price: 20000,
     feePlans: [
@@ -350,7 +350,7 @@ export const courses: Course[] = [
     impactHeadline: "Turn Data, Creative, and Paid Media Into Measurable Growth",
     impactMetrics: [
       { value: "3 Months", label: "Program Length" },
-      { value: "2 Classes/Wk", label: "Interactive Sessions" },
+      { value: "2 Classes/Week", label: "Interactive Sessions" },
       { value: "2 Hours/Day", label: "Class Duration" },
     ],
     defaultProfile: "Working Professional (Developer / Marketer / Corporate Employee)"
@@ -364,7 +364,7 @@ export const courses: Course[] = [
     description: "AI Tools for Study, Work & Daily Life with Online Earning Guidance",
     category: "AI & Freelancing",
     duration: "2 Months",
-    sessions: "2 Classes/Week | 2 hours/Day",
+    sessions: "2 Classes/Week | 2 Hours/Day",
     level: "Beginner",
     price: 15000,
     feePlans: [
@@ -420,7 +420,7 @@ export const courses: Course[] = [
     impactHeadline: "Learn AI Tools That Fit Your Life — Study, Work, Create & Earn",
     impactMetrics: [
       { value: "2 Months", label: "Program Length" },
-      { value: "2 Classes/Wk", label: "Interactive Sessions" },
+      { value: "2 Classes/Week", label: "Interactive Sessions" },
       { value: "2 Hours/Day", label: "Class Duration" },
     ],
     defaultProfile: "Student / Job Seeker / Daily User"
@@ -434,7 +434,7 @@ export const courses: Course[] = [
     description: "E-Commerce Operations, Theme Customization & Guaranteed Internship",
     category: "E-Commerce",
     duration: "2 Months",
-    sessions: "2 Classes/Week",
+    sessions: "2 Classes/Week | 2 Hours/Day",
     level: "Beginner",
     price: 15000,
     feePlans: [
@@ -564,8 +564,8 @@ export const courses: Course[] = [
     impactHeadline: "Master Shopify Store Development & Launch Your E-Commerce Career",
     impactMetrics: [
       { value: "2 Months", label: "Cohort Duration" },
-      { value: "16 Classes", label: "Total Interactive Labs" },
-      { value: "Internship", label: "Hakamtechsol Project" }
+      { value: "2 Classes/Week", label: "Interactive Sessions" },
+      { value: "2 Hours/Day", label: "Class Duration" }
     ],
     defaultProfile: "Freelancer / Remote Operator"
   },

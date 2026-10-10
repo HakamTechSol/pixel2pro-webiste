@@ -55,6 +55,8 @@ export const ToolsCarousel: React.FC = () => {
         <img
           src={logo.src}
           alt={logo.name}
+          loading="lazy"
+          decoding="async"
           className="max-h-12 max-w-[72px] object-contain"
         />
       </div>

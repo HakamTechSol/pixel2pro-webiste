@@ -43,6 +43,19 @@ export function getLowestTotal(plans: FeePlan[]): number {
   return plans.reduce((min, p) => (p.totalFee < min ? p.totalFee : min), Number.MAX_SAFE_INTEGER);
 }
 
+export function getInstallments(plan: FeePlan): FeeInstallment[] {
+  const installments = plan.installments ?? [];
+  if (installments.length === 0) return [];
+  const amounts = installments.map((inst) => inst.amount);
+  if (amounts.every((amount) => amount === amounts[0])) return installments;
+  const base = Math.floor(plan.totalFee / installments.length);
+  const remainder = plan.totalFee - base * installments.length;
+  return installments.map((inst, index) => ({
+    ...inst,
+    amount: base + (index < remainder ? 1 : 0),
+  }));
+}
+
 export function savingsVsMonthly(plans: FeePlan[]): (plan: FeePlan) => number {
   const monthly = getMonthlyPlan(plans);
   return (plan: FeePlan) =>

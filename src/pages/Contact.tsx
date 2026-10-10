@@ -5,11 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { insertRecord } from "@/lib/supabaseClient";
-import { toast } from "sonner";
 import { notifySubmission } from "@/lib/notifications";
+import { isPakistaniMobileNumber } from "@/lib/phone-validation";
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submittedName, setSubmittedName] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,6 +24,12 @@ const Contact = () => {
     const phone = formData.get("phone") as string;
     const message = formData.get("message") as string;
 
+    setSubmitError("");
+    if (!isPakistaniMobileNumber(phone.trim())) {
+      setPhoneError("Enter a valid Pakistani mobile number (11 digits, e.g. 03001234567)");
+      return;
+    }
+    setPhoneError("");
     setLoading(true);
     try {
       await insertRecord("contacts", {
@@ -29,11 +39,12 @@ const Contact = () => {
         message: message.trim(),
       });
       await notifySubmission("contact", { name: name.trim(), email: email.trim(), phone: phone.trim(), message: message.trim() });
-      toast.success("Message sent. Our support team will reply soon.");
+      setSubmittedName(name.trim() || "friend");
+      setShowSuccessModal(true);
       formEl.reset();
     } catch (error) {
       console.error(error);
-      toast.error(error instanceof Error ? error.message : "Unable to send message.");
+      setSubmitError(error instanceof Error ? error.message : "Unable to send message. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -104,13 +115,40 @@ const Contact = () => {
                 <span>Email</span>
               </label>
               <label className="floating-field">
-                <Input required name="phone" type="tel" placeholder=" " />
+                <Input
+                  required
+                  name="phone"
+                  type="tel"
+                  inputMode="numeric"
+                  maxLength={11}
+                  placeholder=" "
+                  aria-invalid={Boolean(phoneError)}
+                  aria-describedby={phoneError ? "contact-phone-error" : "contact-phone-hint"}
+                  onChange={(event) => {
+                    event.currentTarget.value = event.currentTarget.value.replace(/\D/g, "").slice(0, 11);
+                    if (phoneError) setPhoneError("");
+                  }}
+                />
                 <span>Phone</span>
               </label>
+              {phoneError ? (
+                <p id="contact-phone-error" className="text-sm font-medium text-rose-500" role="alert">
+                  {phoneError}
+                </p>
+              ) : (
+                <p id="contact-phone-hint" className="text-xs text-slate-500">
+                  Enter 11 digits starting with 03 (e.g. 03001234567)
+                </p>
+              )}
               <label className="floating-field">
                 <Textarea required name="message" placeholder=" " rows={6} />
                 <span>Message</span>
               </label>
+              {submitError && (
+                <p className="flex items-center gap-1 text-sm font-medium text-rose-500">
+                  {submitError}
+                </p>
+              )}
               <Button type="submit" disabled={loading} className="h-12 rounded-full">
                 {loading ? "Sending..." : "Send Message"}
               </Button>
@@ -159,10 +197,46 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      {showSuccessModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl border border-slate-100 animate-success-pop select-none">
+            <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-emerald-100/50 text-emerald-600 relative">
+              <span className="absolute inset-0 rounded-full bg-emerald-400/20 animate-ping opacity-60" />
+              <div className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 animate-scale-in">
+                <svg className="h-10 w-10 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                  <path className="draw-check-path" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">
+              Message Sent!
+            </h2>
+            <div className="space-y-4 text-sm text-slate-600 leading-relaxed mb-8">
+              <p>
+                Thank you, <strong className="text-slate-900">{submittedName}</strong>! Your message has been received.
+              </p>
+              <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 text-xs text-left text-slate-500 space-y-2">
+                <p className="font-semibold text-slate-800">What happens next?</p>
+                <ul className="list-disc pl-4 space-y-1">
+                  <li>We've successfully logged your message.</li>
+                  <li>Our support team will review it shortly.</li>
+                  <li>You will receive a reply within one business day.</li>
+                </ul>
+              </div>
+            </div>
+            <Button
+              onClick={() => setShowSuccessModal(false)}
+              className="w-full h-12 rounded-full font-bold bg-black text-white hover:bg-slate-800 transition"
+            >
+              Done
+            </Button>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 };
 
 export default Contact;
-
 

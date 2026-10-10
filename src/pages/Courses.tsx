@@ -6,6 +6,7 @@ import CourseCard from "@/components/CourseCard";
 import ToolsCarousel from "@/components/ToolsCarousel";
 import { categories, courses as allCourses } from "@/data/courses";
 import { useWebsiteCourses } from "@/lib/useCourses";
+import { courseSlug } from "@/lib/slug";
 
 const coursesJsonLd = {
   "@context": "https://schema.org",
@@ -25,7 +26,7 @@ const coursesJsonLd = {
       "@type": "ListItem",
       position: i + 1,
       name: c.programName,
-      url: `https://pixel2pro.com/courses/${c.id}`,
+      url: `https://pixel2pro.com/courses/${courseSlug(c)}`,
       description: c.description,
     })),
   },

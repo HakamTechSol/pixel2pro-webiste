@@ -2,6 +2,7 @@
 import { ArrowUpRight, CalendarDays, Clock3 } from "lucide-react";
 import { Button } from "./ui/button";
 import type { Course } from "@/data/courses";
+import { courseSlug } from "@/lib/slug";
 
 const CourseCard = ({ course, compact = false }: { course: Course; compact?: boolean }) => (
   <article className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-[0_18px_44px_rgba(15,23,42,0.06)] transition-all duration-500 hover:-translate-y-2 hover:border-slate-900/15 hover:shadow-[0_28px_80px_rgba(15,23,42,0.14)] motion-safe:animate-[cardFloat_10s_ease-in-out_infinite]">
@@ -38,11 +39,14 @@ const CourseCard = ({ course, compact = false }: { course: Course; compact?: boo
         <span className={`flex items-center gap-2 rounded-md border border-slate-200 px-2.5 transition-colors duration-300 group-hover:border-slate-300 ${compact ? "min-h-9" : "min-h-11"}`}>
           <Clock3 size={compact ? 13 : 15} className="shrink-0" /> {course.duration}
         </span>
-        <span className={`flex items-center gap-2 rounded-md border border-slate-200 px-2.5 transition-colors duration-300 group-hover:border-slate-300 ${compact ? "min-h-9" : "min-h-11"}`}>
-          <CalendarDays size={compact ? 13 : 15} className="shrink-0" /> {course.sessions}
+        <span className={`flex flex-col justify-center gap-0.5 rounded-md border border-slate-200 px-2.5 transition-colors duration-300 group-hover:border-slate-300 ${compact ? "min-h-9 py-1" : "min-h-11 py-1.5"}`}>
+          <span className="flex items-center gap-1.5"><CalendarDays size={compact ? 13 : 15} className="shrink-0" /> {course.sessions.split("|")[0]?.trim()}</span>
+          {course.sessions.includes("|") && (
+            <span className={`flex items-center gap-1.5 ${compact ? "pl-[19px]" : "pl-[21px]"}`}>{course.sessions.split("|")[1]?.trim()}</span>
+          )}
         </span>
       </div>
-      <Link to={`/courses/${course.id}`} className="block pt-2">
+      <Link to={`/courses/${courseSlug(course)}`} className="block pt-2">
         <Button className={`w-full rounded-full transition-transform duration-300 group-hover:translate-y-[-1px] ${compact ? "h-10 text-sm" : "h-12"}`}>
           View Track <ArrowUpRight size={compact ? 14 : 16} />
         </Button>

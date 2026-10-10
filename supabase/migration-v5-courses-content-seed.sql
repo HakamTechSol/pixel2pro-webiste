@@ -27,7 +27,7 @@ UPDATE public.courses SET
   category = 'Development',
   track = 'Development Track',
   duration = '4 Months',
-  sessions = '2 Classes/Week | 2 hours/Day',
+  sessions = '2 Classes/Week | 2 Hours/Day',
   level = 'Advanced',
   price = 1000, discount = 0, admission_fee = 1000, monthly_fee = 3000,
   classes_per_week = 2, hours_per_class = 2, status = 'published',
@@ -70,7 +70,7 @@ UPDATE public.courses SET
   impact_headline = 'Learn, Prompt, Generate, Understand, Debug, Improve, and Deploy in 4 Months',
   impact_metrics = '[
     { "value": "4 Months", "label": "Cohort Duration" },
-    { "value": "2 Classes/Wk", "label": "Interactive Sessions" },
+    { "value": "2 Classes/Week", "label": "Interactive Sessions" },
     { "value": "AI + Vibe", "label": "Core Focus" }
   ]'::jsonb
 WHERE course_name = 'Next-Gen Developer: AI Coding & Vibe Coding';
@@ -83,7 +83,7 @@ UPDATE public.courses SET
   category = 'AI & Freelancing',
   track = 'AI Track',
   duration = '2 Months',
-  sessions = '2 Classes/Week | 2 hours/Day',
+  sessions = '2 Classes/Week | 2 Hours/Day',
   level = 'Beginner',
   price = 1000, discount = 0, admission_fee = 1000, monthly_fee = 3000,
   classes_per_week = 2, hours_per_class = 2, status = 'published',
@@ -120,7 +120,7 @@ UPDATE public.courses SET
   impact_headline = 'Learn AI Tools That Fit Your Life — Study, Work, Create & Earn',
   impact_metrics = '[
     { "value": "2 Months", "label": "Program Length" },
-    { "value": "2 Classes/Wk", "label": "Interactive Sessions" },
+    { "value": "2 Classes/Week", "label": "Interactive Sessions" },
     { "value": "2 Hours/Day", "label": "Class Duration" }
   ]'::jsonb
 WHERE course_name = 'AI Foundation & Freelancing';
@@ -133,7 +133,7 @@ UPDATE public.courses SET
   category = 'Marketing',
   track = 'Marketing Track',
   duration = '3 Months',
-  sessions = '2 Classes/Week | 2 hours/Day',
+  sessions = '2 Classes/Week | 2 Hours/Day',
   level = 'Intermediate',
   price = 1000, discount = 0, admission_fee = 1000, monthly_fee = 3000,
   classes_per_week = 2, hours_per_class = 2, status = 'published',
@@ -175,7 +175,7 @@ UPDATE public.courses SET
   impact_headline = 'Turn Data, Creative, and Paid Media Into Measurable Growth',
   impact_metrics = '[
     { "value": "3 Months", "label": "Program Length" },
-    { "value": "2 Classes/Wk", "label": "Interactive Sessions" },
+    { "value": "2 Classes/Week", "label": "Interactive Sessions" },
     { "value": "2 Hours/Day", "label": "Class Duration" }
   ]'::jsonb
 WHERE course_name = 'Digital Marketing Mastery Program';
@@ -188,7 +188,7 @@ UPDATE public.courses SET
   category = 'E-Commerce',
   track = 'E-Commerce Track',
   duration = '2 Months',
-  sessions = '2 Classes/Week',
+  sessions = '2 Classes/Week | 2 Hours/Day',
   level = 'Beginner',
   price = 1000, discount = 0, admission_fee = 1000, monthly_fee = 3000,
   classes_per_week = 2, hours_per_class = 2, status = 'published',

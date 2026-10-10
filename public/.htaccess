@@ -1,6 +1,10 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+  Redirect 301 /courses/next-gen-developer /courses/next-gen-developer-ai-coding-and-vibe-coding
+  Redirect 301 /courses/digital-marketing /courses/digital-marketing-mastery-program
+  Redirect 301 /courses/shopify-growth /courses/shopify-store-development-and-management
+  Redirect 301 /courses/ai-freelancing /courses/ai-foundation-and-freelancing
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

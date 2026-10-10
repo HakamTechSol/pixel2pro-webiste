@@ -27,7 +27,7 @@ const HeroCarousel = ({ className = "" }: { className?: string }) => {
   };
 
   useEffect(() => {
-    const timer = window.setInterval(() => move(1), 4500);
+    const timer = window.setInterval(() => move(1), 8000);
     return () => window.clearInterval(timer);
   }, []);
 

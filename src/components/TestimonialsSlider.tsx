@@ -54,8 +54,8 @@ const TestimonialsSlider = () => {
   useEffect(() => {
     if (testimonialsList.length === 0) return;
     const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % testimonialsList.length);
-    }, 4500);
+setActiveIndex((prev) => (prev + 1) % testimonialsList.length);
+    }, 7000);
     return () => clearInterval(timer);
   }, [testimonialsList]);
 
