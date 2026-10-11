@@ -9,62 +9,62 @@ import {
 
 const faqs = [
   {
-    question: "How do I enroll in a program?",
+    question: "1. How do I enroll in a program?",
     answer:
       "Browse the Programs page, pick the track that fits your goal, and click 'Join Now' or 'View Track'. Fill in the enrollment form with your details, choose your program, and our admissions team will contact you to confirm payment and get you started.",
   },
   {
-    question: "Do I need prior experience before enrolling?",
+    question: "2. Do I need prior experience before enrolling?",
     answer:
       "Most of our programs are beginner-friendly and start from the fundamentals. Advanced tracks, such as the Next-Gen Developer program, may expect basic computer literacy. Each program page lists its recommended prerequisites in the course detail page.",
   },
   {
-    question: "What do I need to attend the classes?",
+    question: "3. What do I need to attend the classes?",
     answer:
       "You will need a stable internet connection and a laptop or desktop computer. For AI and development tracks, a reasonably modern machine helps. Any specific software or tool requirements are shared before your cohort begins.",
   },
   {
-    question: "How are the classes conducted?",
+    question: "4. How are the classes conducted?",
     answer:
       "Classes are conducted live online through cohort-based sessions. Each program runs on a fixed schedule with live instruction, practical assignments, and recorded material you can review later.",
   },
   {
-    question: "What does the program fee cover?",
+    question: "5. What does the program fee cover?",
     answer:
       "The fee covers your full course access, live instructor-led classes, learning materials and assignments, community support, and a certificate on successful completion. Additional services, if any, are clearly mentioned at the time of enrollment.",
   },
   {
-    question: "Do you offer refunds?",
+    question: "6. Do you offer refunds?",
     answer:
       "Yes, refunds are handled on a case-by-case basis. Eligibility depends on the cohort start date, sessions already consumed, administrative processing, and your specific program. If you believe you qualify, contact our support team with your enrollment details and we will review your case.",
   },
   {
-    question: "Will I get a certificate after completing the program?",
+    question: "7. Will I get a certificate after completing the program?",
     answer:
       "Yes. Learners who meet the attendance and assignment requirements receive a Pixel2Pro certificate of completion, which adds verified, portfolio-grade credibility to your profile.",
   },
   {
-    question: "Do you provide internship or job support?",
+    question: "8. Do you provide internship or job support?",
     answer:
       "Many of our programs include internship pathways and career guidance. We focus on building job-ready skills and portfolio outcomes, and our team shares relevant opportunities when available. We do not guarantee employment or specific income results.",
   },
   {
-    question: "How long does each program take?",
+    question: "9. How long does each program take?",
     answer:
       "Program durations vary by track and are listed on each program page. Most cohorts run between one and four months, with live sessions spread across the week.",
   },
   {
-    question: "Can I take a demo or trial class?",
+    question: "10. Can I take a demo or trial class?",
     answer:
       "Yes, we regularly offer demo sessions for prospective learners. Contact our admissions team on WhatsApp or call us, and we will share the schedule of the next demo class for your preferred track.",
   },
   {
-    question: "Can I switch to a different program after enrolling?",
+    question: "11. Can I switch to a different program after enrolling?",
     answer:
       "Program transfers are possible in limited cases, depending on seat availability and the gap between the programs. Contact our support team to check transfer eligibility for your enrollment.",
   },
   {
-    question: "How can I contact support?",
+    question: "12. How can I contact support?",
     answer:
       "You can reach us through the Contact page, email us at contact@pixel2pro.com, or call/WhatsApp us at +92 316 785 3795.",
   },

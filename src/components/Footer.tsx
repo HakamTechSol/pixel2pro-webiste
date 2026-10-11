@@ -154,7 +154,7 @@ const Footer = () => {
               href="https://hakamtechsol.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline transition-colors hover:text-white"
+              className="transition-colors hover:text-white"
             >
               HakamTechSol
             </a>

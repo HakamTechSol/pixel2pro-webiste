@@ -1,25 +1,25 @@
 import React from "react";
-import aiWorkflowLogo from "@/assets/program-images/Ai Workflow.png";
-import amazonLogo from "@/assets/program-images/amazon-removebg-preview.png";
-import apiLogo from "@/assets/program-images/API-removebg-preview.png";
+import aiWorkflowLogo from "@/assets/program-images/ai-workflow.png";
+import amazonLogo from "@/assets/program-images/amazon.png";
+import apiLogo from "@/assets/program-images/api.png";
 import csharpLogo from "@/assets/program-images/c-sharp.png";
-import dotnetLogo from "@/assets/program-images/dotnet-removebg-preview.png";
-import ecommerceLogo from "@/assets/program-images/ecommers-removebg-preview.png";
-import expressLogo from "@/assets/program-images/express_js-removebg-preview.png";
-import googleAdsLogo from "@/assets/program-images/Google-AdWords-logo-rectangle.png";
-import graphicDesignLogo from "@/assets/program-images/graphic-design-removebg-preview.png";
-import htmlLogo from "@/assets/program-images/HTML-5-Badge-Logo.png";
-import makeLogo from "@/assets/program-images/Make-No-Code-DataScientest-removebg-preview.png";
-import marketplaceLogo from "@/assets/program-images/marketplace-removebg-preview.png";
-import metaAdsLogo from "@/assets/program-images/meta ad .png";
-import mongoLogo from "@/assets/program-images/mongo-removebg-preview.png";
-import nodeLogo from "@/assets/program-images/node_js-removebg-preview.png";
-import promptLogo from "@/assets/program-images/prompt-engineering-logo.png";
-import pythonLogo from "@/assets/program-images/python-removebg-preview.png";
-import reactLogo from "@/assets/program-images/React-removebg-preview.png";
-import shopifyLogo from "@/assets/program-images/shopify-removebg-preview.png";
-import socialMarketingLogo from "@/assets/program-images/social-media-marketing-removebg-preview.png";
-import tiktokLogo from "@/assets/program-images/tiktok-advertising.png";
+import dotnetLogo from "@/assets/program-images/dotnet.png";
+import ecommerceLogo from "@/assets/program-images/ecommerce.png";
+import expressLogo from "@/assets/program-images/express-js.png";
+import googleAdsLogo from "@/assets/program-images/google-ads.png";
+import graphicDesignLogo from "@/assets/program-images/graphic-design.png";
+import htmlLogo from "@/assets/program-images/html-5.png";
+import makeLogo from "@/assets/program-images/make.png";
+import marketplaceLogo from "@/assets/program-images/marketplace.png";
+import metaAdsLogo from "@/assets/program-images/meta-ads.png";
+import mongoLogo from "@/assets/program-images/mongo-db.png";
+import nodeLogo from "@/assets/program-images/node-js.png";
+import promptLogo from "@/assets/program-images/prompt-engineering.png";
+import pythonLogo from "@/assets/program-images/python.png";
+import reactLogo from "@/assets/program-images/react-js.png";
+import shopifyLogo from "@/assets/program-images/shopify.png";
+import socialMarketingLogo from "@/assets/program-images/social-media-marketing.png";
+import tiktokLogo from "@/assets/program-images/tiktok-ads.png";
 
 const logos = [
   { name: "AI Workflow", src: aiWorkflowLogo },
@@ -65,7 +65,7 @@ export const ToolsCarousel: React.FC = () => {
   return (
     <section className="relative overflow-hidden bg-white py-8" aria-label="Tools & Platforms">
       <div className="container mx-auto">
-        <h2 className="mb-6 text-center text-2xl font-bold text-slate-800">Tools & Platforms</h2>
+        <h2 className="mb-6 text-center text-2xl font-bold text-slate-800">Master the Tools the Industry Uses</h2>
       </div>
       <div className="w-full">
         <div className="tools-marquee-wrapper">

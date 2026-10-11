@@ -7,7 +7,6 @@ const banners = [
   "/p2p/digitalmarketing.jpeg",
   "/p2p/shopify.jpeg",
   "/p2p/AIfrelancing.jpeg",
-  "/amazon.png",
 ];
 
 const HeroCarousel = ({ className = "" }: { className?: string }) => {

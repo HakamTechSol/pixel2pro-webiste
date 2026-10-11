@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import logo from "@/assets/logo - Copy.png";
+import logo from "@/assets/small-logo.png";
 
 const RouteLoader = () => {
   const location = useLocation();

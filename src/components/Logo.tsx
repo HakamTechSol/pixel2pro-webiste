@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import logoDark from "@/assets/logo.png";
-import logoLight from "@/assets/logo - Copy.png";
+import logoLight from "@/assets/small-logo.png";
 
 const Logo = ({ variant = "dark", size = "default" }: { variant?: "dark" | "light"; size?: "default" | "small" }) => {
   const src = variant === "light" ? logoLight : logoDark;

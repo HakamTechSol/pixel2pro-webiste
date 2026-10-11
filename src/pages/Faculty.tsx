@@ -1,9 +1,9 @@
 import { Linkedin } from "lucide-react";
 import Layout from "@/components/Layout";
 import hunainHaiderImg from "@/assets/hunain-haider-optimized.png";
-import arbazImg from "@/assets/team-arbaz-optimized.jpg";
-import junaidShahidImg from "@/assets/M Junaid Shahid.png";
-import maliImg from "@/assets/MAli.jpeg";
+import arbazImg from "@/assets/arbaz-ali.jpg";
+import junaidShahidImg from "@/assets/junaid-shahid.png";
+import maliImg from "@/assets/m-ali.jpeg";
 
 type FacultyMember = {
   name: string;

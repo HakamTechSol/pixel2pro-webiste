@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import {
   Accordion,
@@ -86,7 +85,6 @@ const Privacy = () => (
             </AccordionItem>
           ))}
         </Accordion>
-       
       </div>
     </section>
   </Layout>

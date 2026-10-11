@@ -179,18 +179,14 @@ return (
         </div>
       </section>
 
-      <section className="border-b border-slate-200 bg-white py-8">
+      <section className="border-b border-slate-200 bg-white py-12">
         <div className="container">
-          <div className="rounded-lg bg-black p-5 text-white md:p-8">
-            <h2 className="max-w-3xl text-2xl font-bold md:text-4xl">{course.impactHeadline}</h2>
-            <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              {(impactMetrics.length ? impactMetrics : []).map((metric) => (
-                <div key={metric.label} className="rounded-lg border border-white/15 p-5">
-                  <p className="text-3xl font-bold">{metric.value}</p>
-                  <p className="mt-1 text-sm text-slate-300">{metric.label}</p>
-                </div>
-              ))}
-            </div>
+          {/* Added flex, justify-center, and text-center to the container */}
+          <div className="flex flex-col items-center justify-center rounded-lg bg-black p-5 text-center text-white md:p-12">
+            {/* Removed max-w-3xl restrictions or combined it with mx-auto if you still want a max-width limit */}
+            <h2 className="max-w-3xl text-2xl font-bold md:text-4xl mx-auto">
+              {course.impactHeadline}
+            </h2>
           </div>
         </div>
       </section>

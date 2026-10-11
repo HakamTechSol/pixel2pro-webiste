@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, BadgeCheck, Building2, MessageCircleMore, Network, Search } from "lucide-react";
+import { ArrowRight, MessageCircleMore, Search } from "lucide-react";
 import Layout from "@/components/Layout";
 import CourseCard from "@/components/CourseCard";
 import ToolsCarousel from "@/components/ToolsCarousel";
@@ -8,14 +8,12 @@ import { Button } from "@/components/ui/button";
 import { useWebsiteCourses } from "@/lib/useCourses";
 import { useSiteSettings } from "@/lib/useSiteSettings";
 import { courseSlug } from "@/lib/slug";
+import whyImage1 from "@/assets/why-section-images/led-by-active-professionals.png";
+import whyImage2 from "@/assets/why-section-images/live-online-classrooms.png";
+import whyImage3 from "@/assets/why-section-images/project-driven-curriculum-journey.png";
+import whyImage4 from "@/assets/why-section-images/accessible-installment-plans.png";
 
 const VideoTestimonials = lazy(() => import("@/components/VideoTestimonials"));
-
-const trustStats = [
-  { icon: Building2, value: "100+", label: "Academic and industry learning partners" },
-  { icon: BadgeCheck, value: "100%", label: "Verification-ready certificate mapping" },
-  { icon: Network, value: "1000+", label: "Professional alumni and peer network" },
-];
 
 const Index = () => {
   const navigate = useNavigate();
@@ -93,6 +91,33 @@ const Index = () => {
       )
     : [];
 
+  const whyPixel2ProItems = [
+    {
+      title: "Led By Active Professionals",
+      description:
+        "Master modern tech under the guidance of industry practitioners who understand exactly what employers look for in today’s digital landscape.",
+      image: whyImage1,
+    },
+    {
+      title: "Live Online Classrooms",
+      description:
+        "Experience interactive, cohort-based virtual sessions with real-time feedback loops and collaborative learning environments built for momentum.",
+      image: whyImage2,
+    },
+    {
+      title: "Project-Driven Curriculum",
+      description:
+        "Shift beyond theory and build practical tech products that demonstrate your skillset to employers, clients, and future teams.",
+      image: whyImage3,
+    },
+    {
+      title: "Accessible Installment Plans",
+      description:
+        "Focus on growth without financial stress through flexible monthly payment plans designed to keep learning within reach.",
+      image: whyImage4,
+    }
+  ];
+
   return (
     <Layout
       title="Best Online Courses & Educational Research in Pakistan"
@@ -140,15 +165,15 @@ const Index = () => {
         },
       ]}
     >
-      <section className="relative overflow-visible border-b border-slate-200 bg-white">
+      <section className="relative overflow-visible bg-white">
         <div className="container grid grid-cols-1 items-center gap-8 pt-10 pb-6 md:min-h-[520px] md:grid-cols-[0.95fr_1.05fr] md:py-2">
           <div className="space-y-4">
             <div className="space-y-3">
-              <h1 className="max-w-3xl text-4xl font-bold leading-[1.02] tracking-normal sm:text-5xl md:text-6xl lg:text-7xl">
-                Pixel Today Pro Tomorrow
-              </h1>
+              <h2 className="max-w-3xl text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+                Launch Your Tech Career with Mentorship from Active Professionals.
+              </h2>
               <p className="max-w-xl text-base leading-7 text-slate-600 md:text-lg">
-                Pixel2Pro, powered by Hakamtechsol, turns focused learners into job-ready builders through cohort-based tracks, verified credentials, and portfolio-grade outcomes with guaranteed internship opportunities.
+                Powered by <b>Hakamtechsol</b>, <b>Pixel2Pro</b> turns focused learners into job-ready builders through cohort-based tracks, verified credentials, and portfolio-grade outcomes—with guaranteed internship opportunities.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -210,21 +235,34 @@ const Index = () => {
 
           <div className="relative mx-auto hidden w-full max-w-xl md:block">
             <div className="relative h-[330px] overflow-hidden rounded-[28px] border border-slate-200 bg-white p-1.5 shadow-[0_10px_28px_rgba(15,23,42,0.08)] sm:h-[390px] sm:p-2 md:h-[480px]">
-              <div className="relative h-full overflow-hidden rounded-[24px] bg-white">
-                {heroMedia.length > 0 ? (
+              <div className="relative h-full overflow-hidden rounded-[24px] bg-slate-950">
+                {heroMedia.length > 0 && (
                   <>
                     {heroMedia.map((src, i) => (
-                      <img
+                      <div
                         key={i}
-                        src={src}
-                        alt={`Hero image ${i + 1}`}
-                        loading={i === 0 ? "eager" : "lazy"}
-                        decoding="async"
-                        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${i === heroIndex ? "opacity-100" : "opacity-0"}`}
-                      />
-                    ))}
+                        className={`absolute inset-0 transition-opacity duration-1000 ${i === heroIndex ? "opacity-100" : "opacity-0"}`}
+                      >
+                        {/* 1. Blurred background fallback to eliminate black bars/empty space */}
+                        <img
+                          src={src}
+                          alt=""
+                          aria-hidden="true"
+                          className="absolute inset-0 h-full w-full object-cover blur-xl opacity-40 scale-105 pointer-events-none"
+                        />
+                        
+                        {/* 2. The main image forced to fit completely within the container */}
+                        <img
+                          src={src}
+                          alt={`Hero image ${i + 1}`}
+                          loading={i === 0 ? "eager" : "lazy"}
+                          decoding="async"
+                          className="absolute inset-0 h-full w-full object-contain"
+                        />
+                      </div>
+                    ))}    
                     {heroMedia.length > 1 && (
-                      <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
+                      <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5 z-10">
                         {heroMedia.map((_, i) => (
                           <button
                             key={i}
@@ -236,8 +274,6 @@ const Index = () => {
                       </div>
                     )}
                   </>
-                ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-white to-slate-50" />
                 )}
               </div>
             </div>
@@ -245,19 +281,54 @@ const Index = () => {
         </div>
       </section>
 
-      <ToolsCarousel />
+      <section className="bg-gradient-to-b from-white via-slate-50 to-white py-14 md:py-20">
+        <div className="container">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Who is it for?</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 md:text-5xl">
+              Built for people ready to grow beyond the classroom.
+            </h2>
+          </div>
 
-      <section className="border-b border-slate-200 bg-slate-50 py-8 md:py-12">
-        <div className="container grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {trustStats.map((stat) => (
-            <div key={stat.label} className="rounded-lg border border-slate-200 bg-white p-5">
-              <stat.icon size={22} />
-              <p className="mt-5 text-3xl font-bold">{stat.value}</p>
-              <p className="mt-1 text-sm leading-6 text-slate-600">{stat.label}</p>
-            </div>
-          ))}
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              {
+                icon: "🎓",
+                title: "Students & Graduates",
+                text: "Bridge the gap between academic theory and real-world software engineering.",
+              },
+              {
+                icon: "💼",
+                title: "Working Professionals",
+                text: "Sharpen your architecture skills, master new stacks, and accelerate your promotions.",
+              },
+              {
+                icon: "🔄",
+                title: "Career Switchers",
+                text: "Build a bulletproof portfolio and confidently transition into tech from any industry.",
+              },
+              {
+                icon: "🚀",
+                title: "Independent Freelancers",
+                text: "Scale your technical expertise, refine your pipeline, and unlock higher-paying contracts.",
+              },
+            ].map(({ icon, title, text }) => (
+              <div
+                key={title}
+                className="group rounded-[24px] border border-slate-200 bg-white p-6 shadow-[0_12px_30px_rgba(15,23,42,0.04)] transition duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_18px_40px_rgba(15,23,42,0.08)]"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-2xl shadow-inner">
+                  <span aria-hidden="true">{icon}</span>
+                </div>
+                <h3 className="mt-5 text-xl font-bold text-slate-900">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
+
+      <ToolsCarousel />
 
       {bannerEnabled && (
         <section id="whatsapp-enroll" className="scroll-mt-24 border-b border-slate-200 bg-white py-10 md:py-14">
@@ -343,6 +414,46 @@ const Index = () => {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="bg-white py-14 md:py-20">
+        <div className="container">
+          <div className="mb-8 text-center md:mb-10">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">Why Pixel2Pro?</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 md:text-5xl">
+              Learn with clarity, momentum, and real outcomes.
+            </h2>
+          </div>
+
+          <div className="flex h-[430px] gap-3 overflow-hidden rounded-[30px] md:h-[500px]">
+            {whyPixel2ProItems.map((item, index) => (
+              <div
+                key={item.title}
+                className="group relative min-w-0 flex-1 overflow-hidden rounded-[28px] border border-white/10 bg-slate-900 shadow-[0_20px_60px_rgba(15,23,42,0.18)] transition-all duration-500 ease-out hover:flex-[2.4]"
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                }}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/30 to-slate-900/15" />
+
+                <div className="absolute inset-x-0 bottom-0 p-4 transition-all duration-500 md:p-6">
+                  <div className="translate-y-0 opacity-100 transition-all duration-500 group-hover:-translate-y-1 group-hover:opacity-100">
+                    <p className="text-xl font-bold text-white md:text-2xl">{item.title}</p>
+                  </div>
+
+                  <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-500 group-hover:max-h-40 group-hover:opacity-100">
+                    <p className="mt-3 max-w-sm text-sm leading-6 text-slate-200 md:text-base">{item.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

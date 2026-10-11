@@ -12,7 +12,6 @@ const Courses = lazy(() => import("./pages/Courses"));
 const CourseDetail = lazy(() => import("./pages/CourseDetail"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
-const OurTeam = lazy(() => import("./pages/OurTeam"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Faculty = lazy(() => import("./pages/Faculty"));
 const EnrollmentForm = lazy(() => import("./pages/JoinNow"));
@@ -37,7 +36,6 @@ const App = () => (
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/:id" element={<CourseDetail />} />
             <Route path="/about" element={<About />} />
-            <Route path="/team" element={<OurTeam />} />
             <Route path="/faculty" element={<Faculty />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/dashboard" element={<Dashboard />} />
